@@ -1,0 +1,65 @@
+{
+	"easycom": {
+		"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
+	},
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+	    {
+            "path" : "pages/content/content",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/home/home",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/add/add",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#E4E6EC",
+		"backgroundColor": "#E4E6EC"
+	},
+	"tabBar": {
+		"color": "#909399",
+		"selecctedColor": "#23cc52",
+		"backgroundColor": "#FFFFFF",
+		"borderStyle": "black",
+		"list": [{
+				"pagePath": "pages/home/home",
+				"iconPath": "static/image/ze-add@1x.png",
+				"selectedIconPath": "static/image/ze-add@1x.png",
+				"text": "我的"			
+			},
+			{
+				"pagePath": "pages/add/add",
+				"iconPath": "static/image/ze-add@1x.png",
+				"selectedIconPath": "static/image/ze-add@1x.png",
+				"text": ""
+			},
+			{
+				"pagePath": "pages/content/content",
+				"iconPath": "static/image/ze-add@1x.png",
+				"selectedIconPath": "static/image/ze-add@1x.png",
+				"text": "首页"
+			}
+		]
+	}
+}
