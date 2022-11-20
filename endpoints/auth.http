@@ -1,0 +1,57 @@
+@baseUrl = http://localhost:5000
+@urlPath = api/v1
+
+###
+POST {{baseUrl}}/{{urlPath}}/signup
+Content-Type: application/json
+Accept: application/json
+withCredentials:true
+
+{
+  "username":"fdafa",
+  "avatarImage":"https://thirdwx.qlogo.cn/mmopen/vi_32/DIzCuicXIibi…cWULMFdfKZTcZ2CaGca1gl7TAKht0YdUdo4NeJNgaNaaA/132",
+  "jsCode":"0839eV0w3tZzAZ28Px2w3Jj6oA09eV0C"
+}
+
+###
+POST {{baseUrl}}/{{urlPath}}/signin
+Content-Type: application/json
+Accept: application/json
+withCredentials:true
+
+{
+  "username":"lingche",
+  "password":"qwerty"
+}
+
+###
+GET  {{baseUrl}}/{{urlPath}}/signout
+Content-Type: application/json
+Accept: application/json
+withCredentials:true
+
+
+###
+GET  {{baseUrl}}/{{urlPath}}/currentuser
+Content-Type: application/json
+Accept: application/json
+withCredentials:true
+
+
+###
+POST {{baseUrl}}/{{urlPath}}/addModule
+Content-Type: application/json
+Accept: application/json
+withCredentials:true
+
+{
+  "type":2,
+  "subType":"美食",
+  "icon":"food"
+}
+
+###
+GET  {{baseUrl}}/{{urlPath}}/getModule
+Content-Type: application/json
+Accept: application/json
+withCredentials:true
