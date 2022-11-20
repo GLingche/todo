@@ -1,0 +1,1 @@
+<view><calendar vue-id="23783768-1" config="{{conf}}" data-com-type="wx" bind:__l="__l"></calendar><u-tabbar bind:input="__e" vue-id="23783768-2" list="{{tabList}}" mid-button="{{true}}" mid-button-size="65px" active-color="#23cc52" value="{{current}}" data-event-opts="{{[['^input',[['__set_model',['','current','$event',[]]]]]]}}" bind:__l="__l"></u-tabbar></view>

@@ -1,0 +1,36 @@
+{
+  "pages": [
+    "pages/content/content",
+    "pages/home/home",
+    "pages/add/add"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#E4E6EC",
+    "backgroundColor": "#E4E6EC",
+    "navigationStyle": "custom"
+  },
+  "tabBar": {
+    "color": "#909399",
+    "selecctedColor": "#23cc52",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/home/home"
+      },
+      {
+        "pagePath": "pages/add/add"
+      },
+      {
+        "pagePath": "pages/content/content"
+      }
+    ]
+  },
+  "usingComponents": {
+    "calendar": "/wxcomponents/calendar/index"
+  },
+  "sitemapLocation": "sitemap.json"
+}

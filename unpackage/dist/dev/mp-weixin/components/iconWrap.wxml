@@ -1,0 +1,1 @@
+<view class="flex justify-center align-center" style="{{(bag)}}"><u-icon vue-id="2af1bda8-1" name="{{name}}" size="{{size}}" color="{{color}}" bind:__l="__l"></u-icon></view>

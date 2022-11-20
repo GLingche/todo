@@ -1,16 +1,17 @@
 <template>
 	<view>
 		add
-		<u-tabbar v-model="current" :list="list" :mid-button="true" mid-button-size="65px" active-color="#23cc52"></u-tabbar>
+		<u-tabbar v-model="current" :list="tabList" :mid-button="true" mid-button-size="65px" active-color="#23cc52"></u-tabbar>
 	</view>
 	
 </template>
 
 <script>
-import {mapState} from 'vuex'
+import {tabList} from '../../store/tabbar.js';
 	export default {
 		data() {
 			return {
+				tabList:tabList,
 					current: 0
 			}
 		},
@@ -18,9 +19,6 @@ import {mapState} from 'vuex'
 			
 		},
 		computed: {
-			...mapState({
-				list:state => state.setting.list
-			})
 		}
 	}
 </script>
