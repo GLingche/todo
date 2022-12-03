@@ -31,6 +31,17 @@
             
         }
     ],
+	"subPackages":[{
+		    "root": "subpages",
+			"pages":[{
+				"path": "log/log",
+				"style": {
+				  "navigationBarTitleText": "",
+				  "enablePullDownRefresh": false,
+				  "backgroundColor": "#f2f3f5"
+				}
+			}]
+		}],
 	"globalStyle": {
 		"usingComponents": {
 		    "calendar": "/wxcomponents/calendar/index"

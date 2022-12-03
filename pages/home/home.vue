@@ -14,9 +14,22 @@
 		<view class="wrap">
 			<view class="top">
 				<view class="flex align-center">
-					<u-avatar :src="userInfo.avatarImage" class="margin" size="large"></u-avatar>
-					<span class="padding text">{{userInfo.username}}</span>
-					<button  @tap="login" class="userBtn" style="background-color: #f40;" :style="{pointerEvents:pointerEvents}"  v-text="btnValue"></button>
+					<u-avatar
+						:src="userInfo.avatarImage"
+						class="margin"
+						size="large"
+						style="animation-duration:1s"
+						:class="[animation == 'slide-right' ? 'animation-slide-right' : '']"
+					></u-avatar>
+					<span class="padding text" :class="[animation == 'slide-right' ? 'animation-slide-right' : '']" style="animation-duration:1s">{{ userInfo.username }}</span>
+					<button
+						@tap="login"
+						class="userBtn"
+						style="background-color: #f40;animation-duration:1s"
+						:style="{ pointerEvents: pointerEvents }"
+						:class="[animation == 'slide-right' ? 'animation-slide-right' : '']"
+						v-text="btnValue"
+					></button>
 				</view>
 				<view class="content flex justify-center align-center">
 					<view class="flex align-center" v-for="(v, i) in list1" :key="i">
@@ -35,8 +48,12 @@
 
 			<view class="tag">
 				<u-cell-group>
-					<u-cell-item icon="share" title="停车坐爱枫林晚" :arrow="true" arrow-direction="left"></u-cell-item>
-					<u-cell-item icon="map" title="霜叶红于二月花" :arrow="false"></u-cell-item>
+					<u-cell-item icon="edit-pen" title="标签管理" :arrow="true" arrow-direction="left"></u-cell-item>
+					<u-cell-item icon="account" title="个人信息" :arrow="true" arrow-direction="left"></u-cell-item>
+					<u-cell-item icon="question-circle" title="常见问题" :arrow="true" arrow-direction="left"></u-cell-item>
+					<u-cell-item icon="setting" title="设置" :arrow="true" arrow-direction="left"></u-cell-item>
+					<u-line class="u-line" color="#DDDDDD" margin="50rpx 30rpx" length="92%" direction="row" />
+					<u-cell-item icon="bell" title="更新日志" :arrow="false" @click="toLog"></u-cell-item>
 				</u-cell-group>
 			</view>
 			<u-tabbar v-model="current" :list="tabList" :mid-button="true" mid-button-size="65px" active-color="#23cc52"></u-tabbar>
@@ -53,12 +70,12 @@ export default {
 	},
 	data() {
 		return {
-			animation:'',
-			pointerEvents:'initial',//鼠标事件
+			animation: '',
+			pointerEvents: 'initial', //鼠标事件
 			userInfo: {
-			  isLogin: true,
-			  username: '微信用户',
-			  avatarImage: ''
+				isLogin: true,
+				username: '微信用户',
+				avatarImage: ''
 			},
 			background: {
 				backgroundColor: '#F5F5F5'
@@ -101,112 +118,121 @@ export default {
 			return (this.windowWidth / 10) * 2;
 		}
 	},
-	onLoad() {
-		
-	},
+	onLoad() {},
 
 	methods: {
 		//检验token是否过期
-		  async checkTokenExpired() {
-		    if (this.$store.getters.token == null || this.$store.getters.token == '') {
-		     this.userInfo.isLogin = false;
-		     this.btnValue = '微信登录';
-		     this.userInfo.username = '微信用户';
-		     this.userInfo.avatarImage = '';
-		     this.pointerEvents = 'initial';
-		     let cloneList = JSON.parse(JSON.stringify(this.list1));
-		     cloneList[0].tagNum =  0;
-		     cloneList[1].tagNum =  0;
-		     cloneList[2].tagNum =  0;
-		     this.list1 =  cloneList;
-		      //重制state
-		      this.$store.dispatch('user/resetState');
-		    } else {
-		      //获取用户信息api
-		      const apiGetInfo = this.$u.api.User.getInfo;
-		      await this.$store
-		        .dispatch('user/getInfo', apiGetInfo)
-		        .then(res => {
-		          console.log(res, 'dispatchres');
-		
-		          this.userInfo.isLogin = true;
-		          this.userInfo.avatarImage = res.user.avatarImage;
-		          this.userInfo.username = res.user.username;
-				  this.btnValue = res.user.quote;
-				  this.pointerEvents = 'none';
-				  let cloneList = JSON.parse(JSON.stringify(this.list1));
-				  cloneList[0].tagNum =  res.user.records;
-				  cloneList[1].tagNum =  res.user.createTaps;
-				  cloneList[2].tagNum =  res.user.collectTaps;
-				  this.list1 =  cloneList;
-		        })
-		        .catch(error => {
-		          console.log(error, 'getRejInfo');
-		          if (error.statusCode == 408) {
-		            uni.$u.toast('会话过期，请重新登录');
-		
-		            this.userInfo.isLogin = false;
-					this.btnValue = '微信登录';
-		            this.userInfo.username = '微信用户';
-		            this.userInfo.avatarImage = '';
-					this.pointerEvents = 'initial';
-					let cloneList = JSON.parse(JSON.stringify(this.list1));
-					cloneList[0].tagNum =  0;
-					cloneList[1].tagNum =  0;
-					cloneList[2].tagNum =  0;
-					this.list1 =  cloneList;
-		            //重制state
-		            this.$store.dispatch('user/resetState');
-		          }
-		        });
-		    }
-		  },
-		  async login() {
-		      //登录接口api
-		      uni.removeStorageSync('userToken');
-		      const apiLogin = this.$u.api.User.login;
-		      await this.$store.dispatch('user/login', apiLogin).then(res => {
-		        console.log(res, 'dispatchres');
-				
-		        this.userInfo.isLogin = true;
-		        this.userInfo.avatarImage = res.user.avatarImage;
-		        this.userInfo.username = res.user.username;
+		async checkTokenExpired() {
+			if (this.$store.getters.token == null || this.$store.getters.token == '') {
+				this.userInfo.isLogin = false;
+				this.btnValue = '微信登录';
+				this.userInfo.username = '微信用户';
+				this.userInfo.avatarImage = '';
+				this.pointerEvents = 'initial';
+				let cloneList = JSON.parse(JSON.stringify(this.list1));
+				cloneList[0].tagNum = 0;
+				cloneList[1].tagNum = 0;
+				cloneList[2].tagNum = 0;
+				this.list1 = cloneList;
+				//重制state
+				this.$store.dispatch('user/resetState');
+			} else {
+				//获取用户信息api
+				const apiGetInfo = this.$u.api.User.getInfo;
+				await this.$store
+					.dispatch('user/getInfo', apiGetInfo)
+					.then(res => {
+						console.log(res, 'dispatchres');
+						this.animation = 'slide-right';
+						this.userInfo.isLogin = true;
+						this.userInfo.avatarImage = res.user.avatarImage;
+						this.userInfo.username = res.user.username;
+						this.btnValue = res.user.quote;
+						this.pointerEvents = 'none';
+						let cloneList = JSON.parse(JSON.stringify(this.list1));
+						cloneList[0].tagNum = res.user.records;
+						cloneList[1].tagNum = res.user.createTaps;
+						cloneList[2].tagNum = res.user.collectTaps;
+						this.list1 = cloneList;
+
+						setTimeout(() => {
+							this.animation = '';
+						}, 1000);
+					})
+					.catch(error => {
+						console.log(error, 'getRejInfo');
+						if (error.statusCode == 408) {
+							uni.$u.toast('会话过期，请重新登录');
+							this.animation = 'slide-right';
+							setTimeout(() => {
+								this.userInfo.isLogin = false;
+								this.btnValue = '微信登录';
+								this.userInfo.username = '微信用户';
+								this.userInfo.avatarImage = '';
+								this.pointerEvents = 'initial';
+								let cloneList = JSON.parse(JSON.stringify(this.list1));
+								cloneList[0].tagNum = 0;
+								cloneList[1].tagNum = 0;
+								cloneList[2].tagNum = 0;
+								this.list1 = cloneList;
+								//重制state
+								this.$store.dispatch('user/resetState');
+								this.animation = '';
+							}, 1000);
+						}
+					});
+			}
+		},
+		async login() {
+			//登录接口api
+			uni.removeStorageSync('userToken');
+			const apiLogin = this.$u.api.User.login;
+			await this.$store.dispatch('user/login', apiLogin).then(res => {
+				this.animation = 'slide-right';
+				this.userInfo.isLogin = true;
+				this.userInfo.avatarImage = res.user.avatarImage;
+				this.userInfo.username = res.user.username;
 				this.btnValue = res.user.quote;
 				this.pointerEvents = 'none';
 				let cloneList = JSON.parse(JSON.stringify(this.list1));
-				cloneList[0].tagNum =  res.user.records;
-				cloneList[1].tagNum =  res.user.createTaps;
-				cloneList[2].tagNum =  res.user.collectTaps;
-				this.list1 =  cloneList;
-		      }); 
-		  },
+				cloneList[0].tagNum = res.user.records;
+				cloneList[1].tagNum = res.user.createTaps;
+				cloneList[2].tagNum = res.user.collectTaps;
+				this.list1 = cloneList;
+				setTimeout(() => {
+					this.animation = '';
+				}, 1000);
+				console.log(res, 'dispatchres');
+			});
+		},
+		toLog() {
+			uni.navigateTo({
+				url: '../../subpages/log/log'
+			});
+		}
 	},
-  async	onLoad() {
+	onLoad() {
 		//动态加载网络字体
-	await	wx.loadFontFace({
+		wx.loadFontFace({
 			family: 'webfont',
-			source: 'url("https://niuqi.lingche.net.cn/YunFengJingLongXingShu-2.ttf")',
-			success: function(res) {
-				console.log(res, 'success'); //  loaded
-			},
-			fail: function(res) {
-				console.log(res); //  error
-			},
-			complete: function(res) {
-				console.log(res);
-			}
-		});
-		
-	await this.checkTokenExpired();	
+			source: 'url("https://niuqi.lingche.net.cn/YunFengJingLongXingShu-2.ttf")'
+		})
+			.then(res => {
+				this.checkTokenExpired();
+			})
+			.catch(err => {
+				console.log(err);
+			});
 	}
 };
 </script>
 
 <style lang="scss" scoped>
+@import '../../colorui/animation.css';
 .wrap {
 	background-color: rgba(195, 191, 191, 0.1);
 	.top {
-		height: 600upx;
+		height: 550upx;
 		.content {
 			height: 250upx;
 			border: 1px #e4e6ec solid;
@@ -222,6 +248,7 @@ export default {
 }
 
 .text {
+	display: inline-block;
 	font-family: 'webfont' !important;
 	font-size: 65rpx;
 	font-style: normal;
@@ -230,12 +257,9 @@ export default {
 	-moz-osx-font-smoothing: grayscale;
 }
 
-
 //自定义btn
 .userBtn {
-	display: flex;
-	align-items: center;
-	justify-content: center;
+	display: inline-block;
 	position: relative;
 	z-index: 999;
 	width: 150rpx;
@@ -250,9 +274,7 @@ export default {
 	padding: 0;
 
 	font-size: 30rpx;
-	
 }
-
 
 .userBtn:after {
 	content: '';

@@ -4,7 +4,14 @@
     "pages/home/home",
     "pages/add/add"
   ],
-  "subPackages": [],
+  "subPackages": [
+    {
+      "root": "subpages",
+      "pages": [
+        "log/log"
+      ]
+    }
+  ],
   "window": {
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "uni-app",
@@ -31,6 +38,5 @@
   },
   "usingComponents": {
     "calendar": "/wxcomponents/calendar/index"
-  },
-  "sitemapLocation": "sitemap.json"
+  }
 }

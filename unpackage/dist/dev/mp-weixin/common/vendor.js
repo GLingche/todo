@@ -11242,7 +11242,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 3));
 var _vuex = _interopRequireDefault(__webpack_require__(/*! vuex */ 42));
 var _user = _interopRequireDefault(__webpack_require__(/*! ./modules/user */ 43));
-var _getter = _interopRequireDefault(__webpack_require__(/*! ./getter */ 141));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+var _getter = _interopRequireDefault(__webpack_require__(/*! ./getter */ 45));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 _vue.default.use(_vuex.default);var _default =
 
 new _vuex.default.Store({
@@ -12643,6 +12643,23 @@ function removeToken() {
 
 /***/ }),
 /* 45 */
+/*!***********************************************!*\
+  !*** D:/MyCode/前端代码/移动端/todo/store/getter.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var getters = {
+  token: function token(state) {return state.user.token;},
+  avatar: function avatar(state) {return state.user.avatar;},
+  name: function name(state) {return state.user.name;} };var _default =
+
+
+getters;exports.default = _default;
+
+/***/ }),
+/* 46 */
 /*!*********************************************!*\
   !*** D:/MyCode/前端代码/移动端/todo/utils/http.js ***!
   \*********************************************/
@@ -12650,7 +12667,7 @@ function removeToken() {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _index = _interopRequireDefault(__webpack_require__(/*! ../config/index */ 46));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _index = _interopRequireDefault(__webpack_require__(/*! ../config/index */ 47));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 
 var install = function install(Vue, vm) {
   // 基本配置
@@ -12728,7 +12745,7 @@ var install = function install(Vue, vm) {
   install: install };exports.default = _default;
 
 /***/ }),
-/* 46 */
+/* 47 */
 /*!***********************************************!*\
   !*** D:/MyCode/前端代码/移动端/todo/config/index.js ***!
   \***********************************************/
@@ -12743,7 +12760,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
     pro: "" } };exports.default = _default;
 
 /***/ }),
-/* 47 */
+/* 48 */
 /*!******************************************!*\
   !*** D:/MyCode/前端代码/移动端/todo/api/api.js ***!
   \******************************************/
@@ -12752,7 +12769,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
-var _user = _interopRequireDefault(__webpack_require__(/*! ./user.js */ 48));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} // 引入 User 模块
+var _user = _interopRequireDefault(__webpack_require__(/*! ./user.js */ 49));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} // 引入 User 模块
 
 var install = function install(Vue, vm) {
   vm.$u.api = {
@@ -12765,7 +12782,7 @@ var install = function install(Vue, vm) {
   install: install };exports.default = _default;
 
 /***/ }),
-/* 48 */
+/* 49 */
 /*!*******************************************!*\
   !*** D:/MyCode/前端代码/移动端/todo/api/user.js ***!
   \*******************************************/
@@ -12791,13 +12808,13 @@ var User = function User(vm) {
 var _default = User;exports.default = _default;
 
 /***/ }),
-/* 49 */,
 /* 50 */,
 /* 51 */,
 /* 52 */,
 /* 53 */,
 /* 54 */,
-/* 55 */
+/* 55 */,
+/* 56 */
 /*!***********************************************!*\
   !*** D:/MyCode/前端代码/移动端/todo/store/tabbar.js ***!
   \***********************************************/
@@ -12826,108 +12843,6 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.tabList = 
   text: '我的',
   customIcon: false,
   pagePath: "/pages/home/home" }];exports.tabList = tabList;
-
-/***/ }),
-/* 56 */,
-/* 57 */,
-/* 58 */,
-/* 59 */,
-/* 60 */,
-/* 61 */,
-/* 62 */,
-/* 63 */,
-/* 64 */,
-/* 65 */,
-/* 66 */,
-/* 67 */,
-/* 68 */,
-/* 69 */,
-/* 70 */,
-/* 71 */,
-/* 72 */,
-/* 73 */,
-/* 74 */,
-/* 75 */,
-/* 76 */,
-/* 77 */,
-/* 78 */,
-/* 79 */,
-/* 80 */,
-/* 81 */,
-/* 82 */,
-/* 83 */,
-/* 84 */,
-/* 85 */,
-/* 86 */,
-/* 87 */,
-/* 88 */,
-/* 89 */,
-/* 90 */,
-/* 91 */,
-/* 92 */,
-/* 93 */,
-/* 94 */,
-/* 95 */,
-/* 96 */,
-/* 97 */,
-/* 98 */,
-/* 99 */,
-/* 100 */,
-/* 101 */,
-/* 102 */,
-/* 103 */,
-/* 104 */,
-/* 105 */,
-/* 106 */,
-/* 107 */,
-/* 108 */,
-/* 109 */,
-/* 110 */,
-/* 111 */,
-/* 112 */,
-/* 113 */,
-/* 114 */,
-/* 115 */,
-/* 116 */,
-/* 117 */,
-/* 118 */,
-/* 119 */,
-/* 120 */,
-/* 121 */,
-/* 122 */,
-/* 123 */,
-/* 124 */,
-/* 125 */,
-/* 126 */,
-/* 127 */,
-/* 128 */,
-/* 129 */,
-/* 130 */,
-/* 131 */,
-/* 132 */,
-/* 133 */,
-/* 134 */,
-/* 135 */,
-/* 136 */,
-/* 137 */,
-/* 138 */,
-/* 139 */,
-/* 140 */,
-/* 141 */
-/*!***********************************************!*\
-  !*** D:/MyCode/前端代码/移动端/todo/store/getter.js ***!
-  \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var getters = {
-  token: function token(state) {return state.user.token;},
-  avatar: function avatar(state) {return state.user.avatar;},
-  name: function name(state) {return state.user.name;} };var _default =
-
-
-getters;exports.default = _default;
 
 /***/ })
 ]]);

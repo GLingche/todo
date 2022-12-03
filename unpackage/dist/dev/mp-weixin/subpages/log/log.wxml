@@ -1,0 +1,1 @@
+<view><u-navbar vue-id="15856b8a-1" back-icon-size="35rpx" back-text="首页" title="更新日志" is-fixed="{{true}}" border-bottom="false" bind:__l="__l"></u-navbar><view class="margin"><log-layer vue-id="15856b8a-2" bind:__l="__l"></log-layer></view></view>
