@@ -38,5 +38,6 @@
   },
   "usingComponents": {
     "calendar": "/wxcomponents/calendar/index"
-  }
+  },
+  "sitemapLocation": "sitemap.json"
 }

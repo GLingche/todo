@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "u-icon": "/node-modules/uview-ui/components/u-icon/u-icon",
+    "u-line-progress": "/node-modules/uview-ui/components/u-line-progress/u-line-progress",
+    "u-tag": "/node-modules/uview-ui/components/u-tag/u-tag"
+  },
+  "component": true
+}

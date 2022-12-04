@@ -3,6 +3,7 @@
   "enablePullDownRefresh": false,
   "usingComponents": {
     "u-navbar": "/node-modules/uview-ui/components/u-navbar/u-navbar",
+    "u-tag": "/node-modules/uview-ui/components/u-tag/u-tag",
     "u-avatar": "/node-modules/uview-ui/components/u-avatar/u-avatar",
     "u-line": "/node-modules/uview-ui/components/u-line/u-line",
     "u-cell-group": "/node-modules/uview-ui/components/u-cell-group/u-cell-group",

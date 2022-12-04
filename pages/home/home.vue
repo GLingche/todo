@@ -1,16 +1,8 @@
 <template>
 	<view>
-		<u-navbar
-			:background="background"
-			back-icon-name="map"
-			back-icon-size="55rpx"
-			back-icon-color="#696969"
-			title="个人主页"
-			title-color="#696969"
-			is-fixed="true"
-			:border-bottom="false"
-			z-index="9999"
-		></u-navbar>
+		<u-navbar :background="background" :is-back="false"  is-fixed="true" :border-bottom="false" z-index="9999">
+			<view class="slot-wrap"><span class="monDaySpan">{{monDay}}</span><u-tag :text="week" shape="circle" type="success" /></view>
+		</u-navbar>
 		<view class="wrap">
 			<view class="top">
 				<view class="flex align-center">
@@ -33,7 +25,7 @@
 				</view>
 				<view class="content flex justify-center align-center">
 					<view class="flex align-center" v-for="(v, i) in list1" :key="i">
-						<view class="flex flex-direction align-center">
+						<view class="flex flex-direction justify-between align-center" style="height: 150rpx;width: 150rpx;">
 							<iconWrap :bgColor="v.bg" :size="v.iconSize" :color="v.color" :name="v.iconName"></iconWrap>
 							<span style="color:#a9aeb8">{{ v.tagName }}</span>
 							<span style="font-weight: bold;">{{ v.tagNum }}</span>
@@ -64,12 +56,15 @@
 <script>
 import { tabList } from '../../store/tabbar.js';
 import IconWrap from '../../components/iconWrap.vue';
+import {getMonDay,toWeekName} from '../../utils/formatter.js';
 export default {
 	components: {
 		IconWrap
 	},
 	data() {
 		return {
+			monDay:'Oct 2',
+			week:'星期一',
 			animation: '',
 			pointerEvents: 'initial', //鼠标事件
 			userInfo: {
@@ -78,14 +73,14 @@ export default {
 				avatarImage: ''
 			},
 			background: {
-				backgroundColor: '#F5F5F5'
+				backgroundColor: 'rgba(195, 191, 191, 0.1)'
 			},
 			bg: 'rgba(255,165,30,0.5)',
 			tabList: tabList,
 			btnValue: '微信登录',
 			list1: [
 				{
-					iconSize: 65,
+					iconSize: 48,
 					color: '#FFA51E',
 					iconName: 'file-text',
 					tagName: '记录天数',
@@ -93,7 +88,7 @@ export default {
 					bg: 'rgba(255,165,30,0.5)'
 				},
 				{
-					iconSize: 65,
+					iconSize: 48,
 					color: '#23CC52',
 					iconName: 'tags-fill',
 					tagName: '创建标签',
@@ -101,7 +96,7 @@ export default {
 					bg: 'rgba(35,204,82,0.5)'
 				},
 				{
-					iconSize: 65,
+					iconSize: 48,
 					color: '#257CFF',
 					iconName: 'bag-fill',
 					tagName: '收藏条目',
@@ -223,14 +218,20 @@ export default {
 			.catch(err => {
 				console.log(err);
 			});
+	},
+	onShow() {
+		this.monDay = getMonDay();
+		this.week = toWeekName();
 	}
 };
 </script>
 
 <style lang="scss" scoped>
-@import '../../colorui/animation.css';
+@import '../../colorui/animation.css';	
 .wrap {
 	background-color: rgba(195, 191, 191, 0.1);
+	width: 100%;
+	height: 100%;
 	.top {
 		height: 550upx;
 		.content {

@@ -1,5 +1,5 @@
 <template>
-	<view class="flex justify-center align-center" :style="bag"><u-icon :name="name" :size="size" :color="color"></u-icon></view>
+	<view class="flex justify-center align-center" :style="{backgroundColor:bgColor}" style="width: 80rpx;height: 80rpx;border-radius: 50%;" ><u-icon :name="name" :size="size" :color="color"></u-icon></view>
 </template>
 
 <script>

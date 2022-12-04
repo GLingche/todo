@@ -12844,6 +12844,42 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.tabList = 
   customIcon: false,
   pagePath: "/pages/home/home" }];exports.tabList = tabList;
 
+/***/ }),
+/* 57 */
+/*!**************************************************!*\
+  !*** D:/MyCode/前端代码/移动端/todo/utils/formatter.js ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.getMonDay = getMonDay;exports.toWeekName = toWeekName;
+function getMonDay() {
+
+  var temp = new Date().toDateString();
+
+  var mon = temp.substring(4, 7);
+
+  var day = temp.substring(8, 10);
+  var first = day.substring(0, 1);
+  if (first == 0) {
+    return mon + ' ' + day.substring(1, 2);
+  } else
+  {
+    return mon + ' ' + day;
+  }
+}
+
+
+
+function toWeekName() {
+  var a = new Array("日", "一", "二", "三", "四", "五", "六");
+  var week = new Date().getDay();
+  var str = "星期" + a[week];
+
+  return str;
+}
+
 /***/ })
 ]]);
 //# sourceMappingURL=../../.sourcemap/mp-weixin/common/vendor.js.map

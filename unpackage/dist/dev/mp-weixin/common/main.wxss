@@ -6493,4 +6493,18 @@ u-dropdown {
 /* end-微信小程序编译后页面有组件名的元素，特别处理--end */
 /* start--头条小程序编译后页面有组件名的元素，特别处理--start */
 /* end-头条小程序编译后页面有组件名的元素，特别处理--end */
+.monDaySpan {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #272e3b;
+  margin: 0 10px 0 0;
+}
+.slot-wrap {
+  display: flex;
+  align-items: center;
+  /* 如果您想让slot内容占满整个导航栏的宽度 */
+  /* flex: 1; */
+  /* 如果您想让slot内容与导航栏左右有空隙 */
+  padding: 0 20rpx;
+}
 
