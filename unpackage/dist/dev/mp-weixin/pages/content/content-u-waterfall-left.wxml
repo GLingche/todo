@@ -1,0 +1,1 @@
+<block wx:for="{{leftList}}" wx:for-item="item" wx:for-index="index" wx:key="index"><view style="margin-top:30rpx;"><my-card vue-id="{{'23783768-12-'+index}}" card="{{item}}" bind:__l="__l"></my-card></view></block>

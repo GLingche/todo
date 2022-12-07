@@ -1,9 +1,9 @@
 <template>
 	<view class="layer">
 		<view class="remind">
-			<view class="badge" style="background-color: #f40;"></view>
+			<view class="badge" style="background-color: #F53F3F;"></view>
+			<view class="badge" style="background-color: #F7BA1E;"></view>
 			<view class="badge" style="background-color: #7BE188;"></view>
-			<view class="badge" style="background-color: #4080FF;"></view>
 		</view>
 		<view class="content">
 			<view class="edition">v1.2.3</view>

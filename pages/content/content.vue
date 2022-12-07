@@ -21,7 +21,7 @@
 		<!-- 内容 -->
 		<view class="wrap">
 			<!-- 标签 -->
-			<u-tabs :list="list" gutter="0" bar-width="160" :is-scroll="false" active-color="#23cc52"   inactive-color="#606266" :current="currentTab" @change="change"></u-tabs>
+			<u-tabs :list="list" gutter="0" bar-width="160" :is-scroll="false" active-color="#23cc52" inactive-color="#606266" :current="currentTab" @change="change"></u-tabs>
 			<!-- 事项 -->
 			<view class="flex scorll_item" style="width: 650rpx;height: 150rpx;margin:10px">
 				<view v-for="(v, i) in list1" :key="i" style="margin: 10px;"><MinIcon :icon="v"></MinIcon></view>
@@ -34,16 +34,33 @@
 					<u-dropdown-item v-model="value1" :title="dropdownTitle" :options="options1" @change="changeDropdown"></u-dropdown-item>
 				</u-dropdown>
 
-				<view class="flex scorll_item" style="width: 650rpx;height: 400rpx;border-radius: 20px;"><MyCard v-for="(v,i) in 3" style="margin:16px 10px 0px 10px;"></MyCard></view>
+				<view class="flex scorll_item" style="width: 650rpx;height: 350rpx;">
+					<MyCard v-for="(item, index) in list2" :key="index" style="margin:16px 10px 0px 10px;" :card="item"></MyCard>
+				</view>
+
+					<u-waterfall v-model="flowList">
+					<template v-slot:left="{leftList}">
+						<view v-for="(item, index) in leftList" :key="index" style="margin-top: 30rpx;">
+							<MyCard :card="item"></MyCard>
+						</view>
+					</template>
+					<template v-slot:right="{rightList}">
+						<view v-for="(item, index) in rightList" :key="index" style="margin-top: 30rpx;">
+							<MyCard :card="item"></MyCard>
+						</view>
+					</template>
+				</u-waterfall>
+				<image src="../../static/image/report.png" style="width: 96%;height: 260rpx;margin: 10rpx 0;"></image>
 			</view>
 		</view>
-
+		<u-loadmore bg-color="rgb(240, 240, 240)" :status="loadStatus"></u-loadmore>
 		<u-tabbar v-model="current" :list="tabList" :mid-button="true" mid-button-size="65px" active-color="#23cc52"></u-tabbar>
 	</view>
 </template>
-
+s
 <script>
 import { tabList } from '../../store/tabbar.js';
+import { testList, scrollerList } from './test.js';
 import { mapState } from 'vuex';
 import { getMonDay, toWeekName } from '../../utils/formatter.js';
 import MinIcon from './components/MinIcon.vue';
@@ -55,6 +72,9 @@ export default {
 	},
 	data() {
 		return {
+			loadStatus: 'loadmore',
+			flowList: [],
+			list2: [],
 			dropdownTitle: '今日',
 			value1: 1,
 			options1: [
@@ -127,8 +147,14 @@ export default {
 	},
 	computed: {},
 	onShow() {
+		console.log(testList);
+		// console.log(scrollerList);
 		this.monDay = getMonDay();
 		this.week = toWeekName();
+	},
+	onLoad() {
+		this.list2 = scrollerList;
+		this.addRandomData();
 	},
 	methods: {
 		change(index) {
@@ -136,13 +162,32 @@ export default {
 		},
 		changeDropdown(value) {
 			this.dropdownTitle = value;
+		},
+		itemTap(item) {
+			console.log(item);
+		},
+		addRandomData() {
+			for (let i = 0; i < testList.length; i++) {
+				let index = this.$u.random(0, testList.length - 1);
+				// 先转成字符串再转成对象，避免数组对象引用导致数据混乱
+				let item = JSON.parse(JSON.stringify(testList[i]));
+				item.id = this.$u.guid();
+				this.flowList.push(item);
+			}
 		}
+	},
+	onReachBottom() {
+		this.loadStatus = 'loading';
+		// 模拟数据加载
+		setTimeout(() => {
+			this.addRandomData();
+			this.loadStatus = 'loadmore';
+		}, 1000);
 	}
 };
 </script>
 
 <style lang="scss">
-
 .scorll_item {
 	overflow-x: scroll;
 }

@@ -2,6 +2,8 @@
   "navigationBarTitleText": "",
   "enablePullDownRefresh": false,
   "usingComponents": {
+    "content-u-waterfall-left": "/pages/content/content-u-waterfall-left",
+    "content-u-waterfall-right": "/pages/content/content-u-waterfall-right",
     "u-navbar": "/node-modules/uview-ui/components/u-navbar/u-navbar",
     "u-tag": "/node-modules/uview-ui/components/u-tag/u-tag",
     "u-search": "/node-modules/uview-ui/components/u-search/u-search",
@@ -9,6 +11,8 @@
     "u-tabs": "/node-modules/uview-ui/components/u-tabs/u-tabs",
     "u-dropdown": "/node-modules/uview-ui/components/u-dropdown/u-dropdown",
     "u-dropdown-item": "/node-modules/uview-ui/components/u-dropdown-item/u-dropdown-item",
+    "u-waterfall": "/node-modules/uview-ui/components/u-waterfall/u-waterfall",
+    "u-loadmore": "/node-modules/uview-ui/components/u-loadmore/u-loadmore",
     "u-tabbar": "/node-modules/uview-ui/components/u-tabbar/u-tabbar",
     "min-icon": "/pages/content/components/MinIcon",
     "my-card": "/pages/content/components/MyCard"
