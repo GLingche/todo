@@ -45,9 +45,10 @@ Accept: application/json
 withCredentials:true
 
 {
-  "type":2,
-  "subType":"美食",
-  "icon":"food"
+  "type":1,
+  "subType":"设计工作",
+  "icon":"world",
+  "color":"#f40"
 }
 
 ###
@@ -55,3 +56,23 @@ GET  {{baseUrl}}/{{urlPath}}/getModule
 Content-Type: application/json
 Accept: application/json
 withCredentials:true
+
+
+
+###
+POST {{baseUrl}}/{{urlPath}}/addCardItem
+Content-Type: application/json
+Accept: application/json
+withCredentials:true
+
+{
+  "text":"test",
+  "list":["1","2"],
+  "penPictrue":"https://thirdwx.qlogo.cn/mmopen/vi_32/DIzCuicXIibi…cWULMFdfKZTcZ2CaGca1gl7TAKht0YdUdo4NeJNgaNaaA/132",
+  "clock":"test",
+  "repetition":false,
+  "location":"test",
+  "cardType":2,
+  "tagName":"美食"
+}
+

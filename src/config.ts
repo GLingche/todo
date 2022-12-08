@@ -11,9 +11,11 @@ class Config {
   public SECRET_KEY_ONE: string | undefined;
   public SECRET_KEY_TWO: string | undefined;
   public CLIENT_URL: string | undefined;
-  public App_ID:string | undefined;
-  public App_Secret:string | undefined;
-
+  public App_ID: string | undefined;
+  public App_Secret: string | undefined;
+  public CLOUD_NAME: string | undefined;
+  public CLOUD_API_KEY: string | undefined;
+  public CLOUD_API_SECRET: string | undefined;
 
   private readonly DEFAULT_DATABASE_URL = 'mongodb://localhost:27017/todo-list';
   constructor() {
@@ -25,6 +27,9 @@ class Config {
     this.CLIENT_URL = process.env.CLIENT_URL || '';
     this.App_ID = process.env.App_ID || '';
     this.App_Secret = process.env.App_Secret || '';
+    this.CLOUD_NAME = process.env.CLOUD_NAME || '';
+    this.CLOUD_API_KEY = process.env.CLOUD_API_KEY || '';
+    this.CLOUD_API_SECRET = process.env.CLOUD_API_SECRET || '';
   }
 
   public createLogger(name: string): bunyan {
@@ -37,6 +42,14 @@ class Config {
         throw new Error(`Configuration ${key} is undefined.`);
       }
     }
+  }
+
+  public cloudinaryConfig(): void {
+    cloudinagy.v2.config({
+      cloud_name: this.CLOUD_NAME,
+      api_key: this.CLOUD_API_KEY,
+      api_secret: this.CLOUD_API_SECRET
+    });
   }
 }
 

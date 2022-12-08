@@ -8,6 +8,7 @@ export interface IModuleDocument extends Document {
    icon:string;
    done:number;
    createdAt?: Date;
+   color:String;
 }
 
 
@@ -17,6 +18,7 @@ export interface IAddModule {
   type:number;
   subType:string;
   icon:string;
+  color:String;
 }
 
 

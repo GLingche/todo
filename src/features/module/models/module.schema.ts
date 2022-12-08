@@ -5,7 +5,8 @@ const moduleSchema: Schema = new Schema({
   type: { type: Number, default: 1 },
   subType: { type: String, default: '' },
   icon: { type: String, default: '' },
-  done: { type: Number, default: 0 }
+  done: { type: Number, default: 0 },
+  color:{ type:String, default: ''}
 });
 
 
