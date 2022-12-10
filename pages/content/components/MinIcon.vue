@@ -15,7 +15,6 @@ export default {
 		icon: Object
 	},
 	data(props) {
-		// 2 代表可回收物 以此类推
 		return {
 			show: false,
 			tempItem: {

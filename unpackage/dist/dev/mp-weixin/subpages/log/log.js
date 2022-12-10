@@ -172,7 +172,7 @@ var _vuex = __webpack_require__(/*! vuex */ 42); //
 //
 //
 //
-var LogLayer = function LogLayer() {__webpack_require__.e(/*! require.ensure | subpages/log/components/logLayer */ "subpages/log/components/logLayer").then((function () {return resolve(__webpack_require__(/*! ./components/logLayer.vue */ 198));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { components: { LogLayer: LogLayer }, data: function data() {return {};} };exports.default = _default;
+var LogLayer = function LogLayer() {__webpack_require__.e(/*! require.ensure | subpages/log/components/logLayer */ "subpages/log/components/logLayer").then((function () {return resolve(__webpack_require__(/*! ./components/logLayer.vue */ 206));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { components: { LogLayer: LogLayer }, data: function data() {return {};} };exports.default = _default;
 
 /***/ }),
 

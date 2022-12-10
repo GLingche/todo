@@ -241,6 +241,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
+
 var _tabbar = __webpack_require__(/*! ../../store/tabbar.js */ 56);
 var _test = __webpack_require__(/*! ./test.js */ 57);
 var _vuex = __webpack_require__(/*! vuex */ 42);
@@ -304,7 +305,11 @@ var _formatter = __webpack_require__(/*! ../../utils/formatter.js */ 58); //
 //
 //
 //
-var MinIcon = function MinIcon() {__webpack_require__.e(/*! require.ensure | pages/content/components/MinIcon */ "pages/content/components/MinIcon").then((function () {return resolve(__webpack_require__(/*! ./components/MinIcon.vue */ 153));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var MyCard = function MyCard() {__webpack_require__.e(/*! require.ensure | pages/content/components/MyCard */ "pages/content/components/MyCard").then((function () {return resolve(__webpack_require__(/*! ./components/MyCard.vue */ 158));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { components: { MinIcon: MinIcon, MyCard: MyCard }, data: function data() {return { loadStatus: 'loadmore', flowList: [], list2: [], dropdownTitle: '今日', value1: 1, options1: [{ label: '今日', value: '今日' }, { label: '本周', value: '本周' }, { label: '所有', value: '所有' }], keywords: '', monDay: 'Oct 2', week: '星期一', tabList: _tabbar.tabList, current: 0, background: { backgroundColor: '#ffffff' }, list: [{ name: '任务' }, { name: '生活' }, { name: '笔记' }], list1: [{ src: '../../../static/image/test.png', name: '设计工作', number: 12, color: 'rgba(35,204,82,0.2)' }, { src: '../../../static/image/test.png', name: '设计工作', number: 12, color: 'rgba(35,204,82,0.2)' },
+//
+var MinIcon = function MinIcon() {__webpack_require__.e(/*! require.ensure | pages/content/components/MinIcon */ "pages/content/components/MinIcon").then((function () {return resolve(__webpack_require__(/*! ./components/MinIcon.vue */ 153));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var MyCard = function MyCard() {__webpack_require__.e(/*! require.ensure | pages/content/components/MyCard */ "pages/content/components/MyCard").then((function () {return resolve(__webpack_require__(/*! ./components/MyCard.vue */ 158));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var CreateTag = function CreateTag() {Promise.all(/*! require.ensure | pages/content/components/CreateTag */[__webpack_require__.e("common/vendor"), __webpack_require__.e("pages/content/components/CreateTag")]).then((function () {return resolve(__webpack_require__(/*! ./components/CreateTag.vue */ 165));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { components: { MinIcon: MinIcon, MyCard: MyCard, CreateTag: CreateTag }, data: function data() {return { show: false, tempImageSrc: '', loadStatus: 'loadmore', flowList: [], list2: [], dropdownTitle: '今日', value1: 1, options1: [{ label: '今日', value: '今日' }, { label: '本周', value: '本周' }, { label: '所有', value: '所有' }], keywords: '', monDay: 'Oct 2', week: '星期一', tabList: _tabbar.tabList, current: 0, background: { backgroundColor: '#ffffff' }, list: [{ name: '任务' }, { name: '生活' }, { name: '笔记' }], list1: [{ src: '../../../static/image/test.png', name: '设计工作', number: 12, color: 'rgba(35,204,82,0.2)' }, { src: '../../../static/image/test.png', name: '设计工作',
+        number: 12,
+        color: 'rgba(35,204,82,0.2)' },
+
       {
         src: '../../../static/image/test.png',
         name: '设计工作',
@@ -329,7 +334,8 @@ var MinIcon = function MinIcon() {__webpack_require__.e(/*! require.ensure | pag
   },
   computed: {},
   onShow: function onShow() {
-    console.log(_test.testList);
+    console.log(111111111222);
+
     // console.log(scrollerList);
     this.monDay = (0, _formatter.getMonDay)();
     this.week = (0, _formatter.toWeekName)();
@@ -339,6 +345,31 @@ var MinIcon = function MinIcon() {__webpack_require__.e(/*! require.ensure | pag
     this.addRandomData();
   },
   methods: {
+    //阻止滚动穿透
+    perventTouch: function perventTouch() {
+      wx.setPageStyle({
+        style: {
+          overflow: 'hidden' } });
+
+
+    },
+    resetTouch: function resetTouch() {
+      //恢复滚动穿透
+      wx.setPageStyle({
+        style: {
+          overflow: 'auto' } });
+
+
+    },
+    test: function test() {
+      console.log("test1111111111");
+    },
+    shows: function shows() {
+      console.log(1111111);
+      this.$refs.createTag.show = true;
+      this.$refs.createTag.originWidth = 1000;
+      this.$refs.createTag.className = '';
+    },
     change: function change(index) {
       this.currentTab = index;
     },
@@ -356,6 +387,37 @@ var MinIcon = function MinIcon() {__webpack_require__.e(/*! require.ensure | pag
         item.id = this.$u.guid();
         this.flowList.push(item);
       }
+    },
+    searchItem: function searchItem() {
+      var that = this;
+      wx.chooseMedia({
+        count: 1,
+        mediaType: ['image'],
+        sourceType: ['album', 'camera'],
+        maxDuration: 30,
+        camera: 'back',
+        success: function success(res) {
+          // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+          var picFilePath = res.tempFiles[0].tempFilePath;
+          //启动上传等待中...
+          // wx.showToast({
+          //   title: '正在上传...',
+          //   icon: 'loading',
+          //   mask: true,
+          //   duration: 10000
+          // });
+          console.log(picFilePath);
+          that.tempImageSrc = picFilePath;
+          var penPictrue = 'data:image/png;base64,' + wx.getFileSystemManager().readFileSync(picFilePath, 'base64');
+          that.$u.api.User.uploadFile({ penPictrue: penPictrue, cardType: 2, tagName: '美食', text: 'test', list: ['1', '2', '3'] }).
+          then(function (res) {
+            console.log(res, 'result');
+          }).
+          catch(function (err) {
+            console.log(err, 'error');
+          });
+        } });
+
     } },
 
   onReachBottom: function onReachBottom() {var _this = this;

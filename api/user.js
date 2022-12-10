@@ -9,6 +9,9 @@ let User = (vm) => {
     getInfo: () => {
       return vm.$u.get('api/v1/currentuser')
     },
+	uploadFile: (params = {}) => {
+	  return vm.$u.post('api/v1/addCardItem', params)
+	},
   }
 }
 

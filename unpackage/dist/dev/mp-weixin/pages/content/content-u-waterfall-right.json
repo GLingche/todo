@@ -14,6 +14,7 @@
     "u-loadmore": "/node-modules/uview-ui/components/u-loadmore/u-loadmore",
     "u-tabbar": "/node-modules/uview-ui/components/u-tabbar/u-tabbar",
     "min-icon": "/pages/content/components/MinIcon",
-    "my-card": "/pages/content/components/MyCard"
+    "my-card": "/pages/content/components/MyCard",
+    "create-tag": "/pages/content/components/CreateTag"
   }
 }

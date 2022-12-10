@@ -102,16 +102,16 @@ try {
       return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-tag/u-tag */ "node-modules/uview-ui/components/u-tag/u-tag").then(__webpack_require__.bind(null, /*! uview-ui/components/u-tag/u-tag.vue */ 90))
     },
     uAvatar: function() {
-      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-avatar/u-avatar */ "node-modules/uview-ui/components/u-avatar/u-avatar").then(__webpack_require__.bind(null, /*! uview-ui/components/u-avatar/u-avatar.vue */ 165))
+      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-avatar/u-avatar */ "node-modules/uview-ui/components/u-avatar/u-avatar").then(__webpack_require__.bind(null, /*! uview-ui/components/u-avatar/u-avatar.vue */ 173))
     },
     uLine: function() {
-      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-line/u-line */ "node-modules/uview-ui/components/u-line/u-line").then(__webpack_require__.bind(null, /*! uview-ui/components/u-line/u-line.vue */ 172))
+      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-line/u-line */ "node-modules/uview-ui/components/u-line/u-line").then(__webpack_require__.bind(null, /*! uview-ui/components/u-line/u-line.vue */ 180))
     },
     uCellGroup: function() {
-      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-cell-group/u-cell-group */ "node-modules/uview-ui/components/u-cell-group/u-cell-group").then(__webpack_require__.bind(null, /*! uview-ui/components/u-cell-group/u-cell-group.vue */ 179))
+      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-cell-group/u-cell-group */ "node-modules/uview-ui/components/u-cell-group/u-cell-group").then(__webpack_require__.bind(null, /*! uview-ui/components/u-cell-group/u-cell-group.vue */ 187))
     },
     uCellItem: function() {
-      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-cell-item/u-cell-item */ "node-modules/uview-ui/components/u-cell-item/u-cell-item").then(__webpack_require__.bind(null, /*! uview-ui/components/u-cell-item/u-cell-item.vue */ 186))
+      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-cell-item/u-cell-item */ "node-modules/uview-ui/components/u-cell-item/u-cell-item").then(__webpack_require__.bind(null, /*! uview-ui/components/u-cell-item/u-cell-item.vue */ 194))
     },
     uTabbar: function() {
       return Promise.all(/*! import() | node-modules/uview-ui/components/u-tabbar/u-tabbar */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-tabbar/u-tabbar")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-tabbar/u-tabbar.vue */ 146))
@@ -229,7 +229,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var _tabbar = __webpack_require__(/*! ../../store/tabbar.js */ 56);
 
-var _formatter = __webpack_require__(/*! ../../utils/formatter.js */ 58);var _components$data$comp;function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var IconWrap = function IconWrap() {__webpack_require__.e(/*! require.ensure | components/iconWrap */ "components/iconWrap").then((function () {return resolve(__webpack_require__(/*! ../../components/iconWrap.vue */ 193));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = (_components$data$comp = {
+var _formatter = __webpack_require__(/*! ../../utils/formatter.js */ 58);var _components$data$comp;function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var IconWrap = function IconWrap() {__webpack_require__.e(/*! require.ensure | components/iconWrap */ "components/iconWrap").then((function () {return resolve(__webpack_require__(/*! ../../components/iconWrap.vue */ 201));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = (_components$data$comp = {
 
   components: {
     IconWrap: IconWrap },
