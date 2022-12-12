@@ -15,7 +15,7 @@
 <style lang="scss">
 	/*每个页面公共css */
 		@import "uview-ui/index.scss";	
-	
+		@import './colorui/animation.css';	
 	.monDaySpan{
 		font-size: 36rpx;
 		font-weight: bold;

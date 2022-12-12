@@ -3394,12 +3394,20 @@ scroll-view.cu-steps .cu-item.data-v-92bb8f34 {
             animation-name: slide-bottom-data-v-92bb8f34
 }
 .animation-slide-left.data-v-92bb8f34 {
-    -webkit-animation-name: slide-left-data-v-92bb8f34;
-            animation-name: slide-left-data-v-92bb8f34
+     -webkit-animation-name: slide-left-data-v-92bb8f34;
+             animation-name: slide-left-data-v-92bb8f34
 }
 .animation-slide-right.data-v-92bb8f34 {
     -webkit-animation-name: slide-right-data-v-92bb8f34;
             animation-name: slide-right-data-v-92bb8f34
+}
+.animation-slide-up-left.data-v-92bb8f34 {
+      -webkit-animation-name: scale-up-left-data-v-92bb8f34;
+              animation-name: scale-up-left-data-v-92bb8f34
+}
+.animation-slide-up-right.data-v-92bb8f34 {
+    -webkit-animation-name: scale-up-right-data-v-92bb8f34;
+            animation-name: scale-up-right-data-v-92bb8f34
 }
 .animation-shake.data-v-92bb8f34 {
     -webkit-animation-name: shake-data-v-92bb8f34;
@@ -3407,6 +3415,84 @@ scroll-view.cu-steps .cu-item.data-v-92bb8f34 {
 }
 .animation-reverse.data-v-92bb8f34 {
     animation-direction: reverse
+}
+@-webkit-keyframes scale-up-left-data-v-92bb8f34 {
+0% {
+		  opacity: .5;
+        -webkit-transform: scale(.99);
+                transform: scale(.99)
+}
+50% {
+        -webkit-transform: scale(1);
+                transform: scale(1)
+}
+51% {
+        -webkit-transform: translateX(-100%);
+                transform: translateX(-100%)
+}
+100% {
+        -webkit-transform: translateX(0);
+                transform: translateX(0)
+}
+}
+@keyframes scale-up-left-data-v-92bb8f34 {
+0% {
+		  opacity: .5;
+        -webkit-transform: scale(.99);
+                transform: scale(.99)
+}
+50% {
+        -webkit-transform: scale(1);
+                transform: scale(1)
+}
+51% {
+        -webkit-transform: translateX(-100%);
+                transform: translateX(-100%)
+}
+100% {
+        -webkit-transform: translateX(0);
+                transform: translateX(0)
+}
+}
+@-webkit-keyframes scale-up-right-data-v-92bb8f34 {
+0% {
+		  opacity: .5;
+        -webkit-transform: scale(.99);
+                transform: scale(.99)
+}
+50% {
+        -webkit-transform: scale(1);
+                transform: scale(1)
+}
+51% {
+       -webkit-transform: translateX(100%);
+               transform: translateX(100%)
+}
+100% {
+	    opacity: 1;
+       -webkit-transform: translateX(0);
+               transform: translateX(0)
+}
+}
+@keyframes scale-up-right-data-v-92bb8f34 {
+0% {
+		  opacity: .5;
+        -webkit-transform: scale(.99);
+                transform: scale(.99)
+}
+50% {
+        -webkit-transform: scale(1);
+                transform: scale(1)
+}
+51% {
+       -webkit-transform: translateX(100%);
+               transform: translateX(100%)
+}
+100% {
+	    opacity: 1;
+       -webkit-transform: translateX(0);
+               transform: translateX(0)
+}
 }
 @-webkit-keyframes fade-data-v-92bb8f34 {
 0% {

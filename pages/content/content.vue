@@ -18,13 +18,30 @@
 			></u-search>
 			<view class="flex align-center justify-center boxCard"><u-icon name="calendar" color="#23cc52" size="42"></u-icon></view>
 		</view>
+		<!-- 标签 -->
+		<view style="margin-top: 100rpx;">
+			<u-tabs
+				style="margin-top: 50px;"
+				:list="list"
+				gutter="0"
+				bar-width="160"
+				:is-scroll="false"
+				active-color="#23cc52"
+				inactive-color="#606266"
+				:current="currentTab"
+				@change="change"
+			></u-tabs>
+		</view>
+
 		<!-- 内容 -->
-		<view class="wrap">
-			<!-- 标签 -->
-			<u-tabs :list="list" gutter="0" bar-width="160" :is-scroll="false" active-color="#23cc52" inactive-color="#606266" :current="currentTab" @change="change"></u-tabs>
+		<view
+			class="wrap"
+			style="animation-duration:1s;"
+			:class="[animation == 'slide-right' ? 'animation-slide-up-right' : '', animation == 'slide-left' ? 'animation-slide-up-left' : '']"
+		>
 			<!-- 事项 -->
 			<view class="flex scorll_item" style="width: 650rpx;height: 150rpx;margin:10px">
-				<view v-for="(v, i) in list1" :key="i" style="margin: 10px;" @tap="test"><MinIcon :icon="v" ></MinIcon></view>
+				<view v-for="(v, i) in list1" :key="i" style="margin: 10px;" @tap="test"><MinIcon :icon="v"></MinIcon></view>
 				<view class="flex justify-center  align-center boxCard2" @tap="shows"><u-icon name="plus" color="#c9cdd4" size="48"></u-icon></view>
 			</view>
 
@@ -34,11 +51,11 @@
 					<u-dropdown-item v-model="value1" :title="dropdownTitle" :options="options1" @change="changeDropdown"></u-dropdown-item>
 				</u-dropdown>
 
-				<view class="flex scorll_item" style="width: 650rpx;height: 350rpx;">
+				<view class="flex scorll_item" style="width: 650rpx;" :style="{ height: autoHeight + 'rpx' }">
 					<MyCard v-for="(item, index) in list2" :key="index" style="margin:16px 10px 0px 10px;" :card="item"></MyCard>
 				</view>
 
-				<u-waterfall v-model="flowList">
+				<u-waterfall v-model="flowList" v-if="currentTab == 2">
 					<template v-slot:left="{ leftList }">
 						<view v-for="(item, index) in leftList" :key="index" style="margin-top: 30rpx;"><MyCard :card="item"></MyCard></view>
 					</template>
@@ -46,27 +63,24 @@
 						<view v-for="(item, index) in rightList" :key="index" style="margin-top: 30rpx;"><MyCard :card="item"></MyCard></view>
 					</template>
 				</u-waterfall>
-				<image src="../../static/image/report.png" style="width: 96%;height: 260rpx;margin: 10rpx 0;"></image>
+				<image src="../../static/image/report.png" style="width: 96%;height: 260rpx;margin: 10rpx 0;" @tap="createReport"></image>
 			</view>
 		</view>
-		
-			<CreateTag ref="createTag" @resetTouch="resetTouch" @perventTouch="perventTouch"></CreateTag>
-			
-	
 
-		<u-loadmore bg-color="rgb(240, 240, 240)" :status="loadStatus"></u-loadmore>
+		<CreateTag ref="createTag" @createTags="createTags" @resetTouch="resetTouch" @perventTouch="perventTouch"></CreateTag>
+
+		<u-loadmore v-if="currentTab == 2" bg-color="rgb(240, 240, 240)" :status="loadStatus"></u-loadmore>
 		<u-tabbar v-model="current" :list="tabList" :mid-button="true" mid-button-size="65px" active-color="#23cc52"></u-tabbar>
 	</view>
 </template>
-s
 <script>
 import { tabList } from '../../store/tabbar.js';
-import { testList, scrollerList } from './test.js';
+import { testList2, scrollerList, testList1, scrollerList2 } from './test.js';
 import { mapState } from 'vuex';
 import { getMonDay, toWeekName } from '../../utils/formatter.js';
 import MinIcon from './components/MinIcon.vue';
 import MyCard from './components/MyCard.vue';
-import CreateTag from './components/CreateTag.vue'
+import CreateTag from './components/CreateTag.vue';
 export default {
 	components: {
 		MinIcon,
@@ -75,7 +89,9 @@ export default {
 	},
 	data() {
 		return {
-			show:false,
+			autoHeight: 350,
+			animation: '',
+			show: false,
 			tempImageSrc: '',
 			loadStatus: 'loadmore',
 			flowList: [],
@@ -153,55 +169,86 @@ export default {
 	computed: {},
 	onShow() {
 		console.log(111111111222);
-		
+
 		// console.log(scrollerList);
 		this.monDay = getMonDay();
 		this.week = toWeekName();
 	},
 	onLoad() {
-		this.list2 = scrollerList;
+		this.list2 = testList1;
 		this.addRandomData();
 	},
 	methods: {
-		//阻止滚动穿透
-		perventTouch(){
-			wx.setPageStyle({
-			   style: {
-			     overflow: 'hidden'
-			   }
-			})
+		createReport(){
+			uni.$u.toast('尚未开发,还在摸鱼');
 		},
-		resetTouch(){
+		createTags(val){
+			console.log(val,'createItem');
+			this.list1.unshift(val);
+		},
+		
+		//阻止滚动穿透
+		perventTouch() {
+			wx.setPageStyle({
+				style: {
+					overflow: 'hidden'
+				}
+			});
+		},
+		resetTouch() {
 			//恢复滚动穿透
 			wx.setPageStyle({
-			   style: {
-			     overflow: 'auto'
-			   }
-			})
+				style: {
+					overflow: 'auto'
+				}
+			});
 		},
-		test(){
-		console.log("test1111111111")	
+		test() {
+			console.log('test1111111111');
 		},
-		shows(){
-		console.log(1111111)
-		this.$refs.createTag.show = true;
-		this.$refs.createTag.originWidth = 1000;
+		shows() {
+			console.log(1111111);
+			this.$refs.createTag.show = true;
+			this.$refs.createTag.originWidth = 1000;
 			this.$refs.createTag.className = '';
 		},
 		change(index) {
+			if (this.currentTab > index) {
+				this.animation = 'slide-right';
+			
+			} else {
+				this.animation = 'slide-left';
+			}
 			this.currentTab = index;
+		setTimeout(() => {
+			if (this.currentTab == 0) {
+				this.autoHeight = 350;
+				this.list2 = testList1;
+			} else if (this.currentTab == 1) {
+				this.autoHeight = 600;
+				this.list2 = scrollerList;
+			} else {
+				this.autoHeight = 350;
+				this.list2 = scrollerList2;
+			}
+			this.animation = '';
+		}, 1000);
+	
+			console.log(this.currentTab);
+			console.log(index, 'this index');
 		},
 		changeDropdown(value) {
+			console.log(this.currentTab);
 			this.dropdownTitle = value;
 		},
 		itemTap(item) {
 			console.log(item);
 		},
 		addRandomData() {
-			for (let i = 0; i < testList.length; i++) {
-				let index = this.$u.random(0, testList.length - 1);
+			for (let i = 0; i < testList2.length; i++) {
+				let index = this.$u.random(0, testList2.length - 1);
 				// 先转成字符串再转成对象，避免数组对象引用导致数据混乱
-				let item = JSON.parse(JSON.stringify(testList[i]));
+				let item = JSON.parse(JSON.stringify(testList2[i]));
 				item.id = this.$u.guid();
 				this.flowList.push(item);
 			}
@@ -276,6 +323,5 @@ export default {
 }
 .wrap {
 	padding: 0;
-	margin: 100rpx 0;
 }
 </style>

@@ -180,7 +180,21 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -306,19 +320,21 @@ var _formatter = __webpack_require__(/*! ../../utils/formatter.js */ 58); //
 //
 //
 //
-var MinIcon = function MinIcon() {__webpack_require__.e(/*! require.ensure | pages/content/components/MinIcon */ "pages/content/components/MinIcon").then((function () {return resolve(__webpack_require__(/*! ./components/MinIcon.vue */ 153));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var MyCard = function MyCard() {__webpack_require__.e(/*! require.ensure | pages/content/components/MyCard */ "pages/content/components/MyCard").then((function () {return resolve(__webpack_require__(/*! ./components/MyCard.vue */ 158));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var CreateTag = function CreateTag() {Promise.all(/*! require.ensure | pages/content/components/CreateTag */[__webpack_require__.e("common/vendor"), __webpack_require__.e("pages/content/components/CreateTag")]).then((function () {return resolve(__webpack_require__(/*! ./components/CreateTag.vue */ 165));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { components: { MinIcon: MinIcon, MyCard: MyCard, CreateTag: CreateTag }, data: function data() {return { show: false, tempImageSrc: '', loadStatus: 'loadmore', flowList: [], list2: [], dropdownTitle: '今日', value1: 1, options1: [{ label: '今日', value: '今日' }, { label: '本周', value: '本周' }, { label: '所有', value: '所有' }], keywords: '', monDay: 'Oct 2', week: '星期一', tabList: _tabbar.tabList, current: 0, background: { backgroundColor: '#ffffff' }, list: [{ name: '任务' }, { name: '生活' }, { name: '笔记' }], list1: [{ src: '../../../static/image/test.png', name: '设计工作', number: 12, color: 'rgba(35,204,82,0.2)' }, { src: '../../../static/image/test.png', name: '设计工作',
-        number: 12,
-        color: 'rgba(35,204,82,0.2)' },
-
-      {
-        src: '../../../static/image/test.png',
-        name: '设计工作',
-        number: 12,
-        color: 'rgba(35,204,82,0.2)' },
-
-      {
-        src: '../../../static/image/test.png',
-        name: '设计工作',
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var MinIcon = function MinIcon() {__webpack_require__.e(/*! require.ensure | pages/content/components/MinIcon */ "pages/content/components/MinIcon").then((function () {return resolve(__webpack_require__(/*! ./components/MinIcon.vue */ 153));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var MyCard = function MyCard() {__webpack_require__.e(/*! require.ensure | pages/content/components/MyCard */ "pages/content/components/MyCard").then((function () {return resolve(__webpack_require__(/*! ./components/MyCard.vue */ 158));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var CreateTag = function CreateTag() {Promise.all(/*! require.ensure | pages/content/components/CreateTag */[__webpack_require__.e("common/vendor"), __webpack_require__.e("pages/content/components/CreateTag")]).then((function () {return resolve(__webpack_require__(/*! ./components/CreateTag.vue */ 165));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { components: { MinIcon: MinIcon, MyCard: MyCard, CreateTag: CreateTag }, data: function data() {return { autoHeight: 350, animation: '', show: false, tempImageSrc: '', loadStatus: 'loadmore', flowList: [], list2: [], dropdownTitle: '今日', value1: 1, options1: [{ label: '今日', value: '今日' }, { label: '本周', value: '本周' }, { label: '所有', value: '所有' }], keywords: '', monDay: 'Oct 2', week: '星期一', tabList: _tabbar.tabList, current: 0, background: { backgroundColor: '#ffffff' }, list: [{ name: '任务' }, { name: '生活' }, { name: '笔记' }], list1: [{ src: '../../../static/image/test.png', name: '设计工作', number: 12, color: 'rgba(35,204,82,0.2)' }, { src: '../../../static/image/test.png', name: '设计工作', number: 12, color: 'rgba(35,204,82,0.2)' }, { src: '../../../static/image/test.png', name: '设计工作', number: 12, color: 'rgba(35,204,82,0.2)' }, { src: '../../../static/image/test.png', name: '设计工作',
         number: 12,
         color: 'rgba(35,204,82,0.2)' },
 
@@ -341,10 +357,18 @@ var MinIcon = function MinIcon() {__webpack_require__.e(/*! require.ensure | pag
     this.week = (0, _formatter.toWeekName)();
   },
   onLoad: function onLoad() {
-    this.list2 = _test.scrollerList;
+    this.list2 = _test.testList1;
     this.addRandomData();
   },
   methods: {
+    createReport: function createReport() {
+      uni.$u.toast('尚未开发,还在摸鱼');
+    },
+    createTags: function createTags(val) {
+      console.log(val, 'createItem');
+      this.list1.unshift(val);
+    },
+
     //阻止滚动穿透
     perventTouch: function perventTouch() {
       wx.setPageStyle({
@@ -362,7 +386,7 @@ var MinIcon = function MinIcon() {__webpack_require__.e(/*! require.ensure | pag
 
     },
     test: function test() {
-      console.log("test1111111111");
+      console.log('test1111111111');
     },
     shows: function shows() {
       console.log(1111111);
@@ -370,20 +394,43 @@ var MinIcon = function MinIcon() {__webpack_require__.e(/*! require.ensure | pag
       this.$refs.createTag.originWidth = 1000;
       this.$refs.createTag.className = '';
     },
-    change: function change(index) {
+    change: function change(index) {var _this = this;
+      if (this.currentTab > index) {
+        this.animation = 'slide-right';
+
+      } else {
+        this.animation = 'slide-left';
+      }
       this.currentTab = index;
+      setTimeout(function () {
+        if (_this.currentTab == 0) {
+          _this.autoHeight = 350;
+          _this.list2 = _test.testList1;
+        } else if (_this.currentTab == 1) {
+          _this.autoHeight = 600;
+          _this.list2 = _test.scrollerList;
+        } else {
+          _this.autoHeight = 350;
+          _this.list2 = _test.scrollerList2;
+        }
+        _this.animation = '';
+      }, 1000);
+
+      console.log(this.currentTab);
+      console.log(index, 'this index');
     },
     changeDropdown: function changeDropdown(value) {
+      console.log(this.currentTab);
       this.dropdownTitle = value;
     },
     itemTap: function itemTap(item) {
       console.log(item);
     },
     addRandomData: function addRandomData() {
-      for (var i = 0; i < _test.testList.length; i++) {
-        var index = this.$u.random(0, _test.testList.length - 1);
+      for (var i = 0; i < _test.testList2.length; i++) {
+        var index = this.$u.random(0, _test.testList2.length - 1);
         // 先转成字符串再转成对象，避免数组对象引用导致数据混乱
-        var item = JSON.parse(JSON.stringify(_test.testList[i]));
+        var item = JSON.parse(JSON.stringify(_test.testList2[i]));
         item.id = this.$u.guid();
         this.flowList.push(item);
       }
@@ -420,14 +467,15 @@ var MinIcon = function MinIcon() {__webpack_require__.e(/*! require.ensure | pag
 
     } },
 
-  onReachBottom: function onReachBottom() {var _this = this;
+  onReachBottom: function onReachBottom() {var _this2 = this;
     this.loadStatus = 'loading';
     // 模拟数据加载
     setTimeout(function () {
-      _this.addRandomData();
-      _this.loadStatus = 'loadmore';
+      _this2.addRandomData();
+      _this2.loadStatus = 'loadmore';
     }, 1000);
   } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

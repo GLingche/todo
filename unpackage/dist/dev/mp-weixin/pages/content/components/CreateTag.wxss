@@ -3406,6 +3406,6 @@ scroll-view.cu-steps .cu-item.data-v-8825eb18 {
   width: 100rpx;
   height: 100rpx;
   border-radius: 50%;
-  background: linear-gradient(to bottom, transparent, #23C343);
+  background: linear-gradient(to bottom, transparent, #23c343);
 }
 

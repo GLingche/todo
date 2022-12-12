@@ -246,7 +246,7 @@ var _default =
     types: Number },
 
   data: function data(props) {
-    // type 1为任务 2为生活 3为笔记
+    // type 0为任务 1为生活 2为笔记
     return {
       type: 3,
       show: false,

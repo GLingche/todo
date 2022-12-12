@@ -80,10 +80,10 @@ var components
 try {
   components = {
     uPopup: function() {
-      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-popup/u-popup */ "node-modules/uview-ui/components/u-popup/u-popup").then(__webpack_require__.bind(null, /*! uview-ui/components/u-popup/u-popup.vue */ 258))
+      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-popup/u-popup */ "node-modules/uview-ui/components/u-popup/u-popup").then(__webpack_require__.bind(null, /*! uview-ui/components/u-popup/u-popup.vue */ 234))
     },
     uInput: function() {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-input/u-input */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-input/u-input")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-input/u-input.vue */ 265))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-input/u-input */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-input/u-input")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-input/u-input.vue */ 241))
     },
     uLine: function() {
       return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-line/u-line */ "node-modules/uview-ui/components/u-line/u-line").then(__webpack_require__.bind(null, /*! uview-ui/components/u-line/u-line.vue */ 180))
@@ -92,7 +92,7 @@ try {
       return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-icon/u-icon */ "node-modules/uview-ui/components/u-icon/u-icon").then(__webpack_require__.bind(null, /*! uview-ui/components/u-icon/u-icon.vue */ 104))
     },
     uButton: function() {
-      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-button/u-button */ "node-modules/uview-ui/components/u-button/u-button").then(__webpack_require__.bind(null, /*! uview-ui/components/u-button/u-button.vue */ 273))
+      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-button/u-button */ "node-modules/uview-ui/components/u-button/u-button").then(__webpack_require__.bind(null, /*! uview-ui/components/u-button/u-button.vue */ 249))
     }
   }
 } catch (e) {
@@ -158,7 +158,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
 
@@ -249,7 +249,15 @@ var _color = __webpack_require__(/*! ../color.js */ 170); //
 //
 //
 //
-var _default = { name: 'CreateTag', props: { icon: Object }, data: function data(props) {return { tempImageSrc: '', imgTempIndex: 0, colorTempIndex: 0, coloritems: [], imageItems: [], className: '', beaginMS: '', endMS: '', startY: '', originWidth: 1000, distance: '', value: '', show: false, tempItem: { name: null, id: null, categroyId: null, image: '../../static/image/test.png' }, list: { src: '../../static/image/test.png', name: '设计工作', number: 12, color: '#23cc52' }, backgroundColor: 'rgba(35,204,82,0.5)' };}, methods: { addIcon: function addIcon() {var that = this;wx.chooseMedia({ count: 1, mediaType: ['image'], sourceType: ['album', 'camera'], maxDuration: 30, camera: 'back',
+var _default = { name: 'CreateTag', props: { icon: Object }, data: function data(props) {return { radio: 1.8, //灵敏参数频
+      tempImageSrc: '', imgTempIndex: 0, colorTempIndex: 0, coloritems: [], imageItems: [], className: '', beaginMS: '', endMS: '', startY: '', originWidth: 1000, distance: '', valueText: null, show: false, backgroundColor: 'rgba(35,204,82,0.5)', currentColor: null, currentIcon: null };}, methods: { createItem: function createItem() {console.log(this.valueText, this.currentColor, this.currentIcon);var tagItem = { src: this.currentIcon, name: this.valueText, number: 0, color: this.currentColor };if (!this.valueText || !this.currentColor || !this.currentIcon) {uni.$u.toast('请确认信息填充完毕');} else {this.$emit('createTags', tagItem);this.show = false;}}, addIcon: function addIcon() {
+      var that = this;
+      wx.chooseMedia({
+        count: 1,
+        mediaType: ['image'],
+        sourceType: ['album', 'camera'],
+        maxDuration: 30,
+        camera: 'back',
         success: function success(res) {
           // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
           var picFilePath = res.tempFiles[0].tempFilePath;
@@ -265,7 +273,9 @@ var _default = { name: 'CreateTag', props: { icon: Object }, data: function data
           that.tempImageSrc = picFilePath;
           var obj = {
             src: picFilePath,
-            id: Math.random().toString(36).slice(2),
+            id: Math.random().
+            toString(36).
+            slice(2),
             status: false };
 
           that.imageItems[that.imgTempIndex].status = false;
@@ -279,11 +289,13 @@ var _default = { name: 'CreateTag', props: { icon: Object }, data: function data
     clickColorList: function clickColorList(val, index) {
       this.coloritems[this.colorTempIndex].status = false;
       val.status = true;
+      this.currentColor = val.color;
       this.colorTempIndex = index;
     },
     clickImageList: function clickImageList(val, index) {
       this.imageItems[this.imgTempIndex].status = false;
       val.status = true;
+      this.currentIcon = val.src;
       this.imgTempIndex = index;
     },
     touchStart: function touchStart(e) {
@@ -309,21 +321,31 @@ var _default = { name: 'CreateTag', props: { icon: Object }, data: function data
       if (this.originWidth > 1400 && this.distance > 0) {
         return;
       }
-      this.originWidth = this.originWidth + this.distance;
+      this.originWidth = this.originWidth + this.distance * this.radio;
 
       // console.log(e.touches[0].pageY,'移动的距离')
     },
     touchEnd: function touchEnd(e) {
       this.endMS = Date.now(); //记录用户最后的触摸时间
-      if (this.endMS - this.beaginMS < 500 && this.distance < -100) {
+      console.log(this.endMS - this.beaginMS, '差值');
+      console.log(this.endMS - this.beaginMS < 300);
+      console.log(this.distance);
+      if (this.endMS - this.beaginMS < 500 && this.distance < -8) {
         console.log(222222);
         this.show = false;
       }
       console.log(this.originWidth, '手指松开了');
+    },
+
+    reset: function reset() {
+      this.coloritems[this.colorTempIndex].status = false;
+      this.imageItems[this.imgTempIndex].status = false;
+      this.valueText = null;
     } },
 
   watch: {
     show: function show(val) {
+      this.reset();
       if (val) {
         this.$emit('perventTouch');
       } else {
@@ -335,6 +357,7 @@ var _default = { name: 'CreateTag', props: { icon: Object }, data: function data
     this.coloritems = _color.colorList;
     this.imageItems = _color.imageList;
   } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

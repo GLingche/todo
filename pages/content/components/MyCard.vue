@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<!-- 任务 -->
-		<view v-if="card.type ==1" class="flex task justify-around align-center">
+		<view v-if="card.type ==0" class="flex task justify-around align-center">
 			<view class="warp flex justify-around flex-direction">
 				<view class="flex justify-between align-center">
 					<view style="padding-left:38rpx; text-indent:-38rpx;">
@@ -24,7 +24,7 @@
 		</view>
 
 		<!-- 生活 -->
-		<view v-if="card.type == 2" class="flex life justify-around align-center">
+		<view v-if="card.type == 1" class="flex life justify-around align-center">
 			<view class="warp flex justify-around flex-direction">
 				<view style="padding-left:38rpx; text-indent:-38rpx;">
 					<view class="circle" style="display: inline-block;margin: 0 12rpx;vertical-align:20%;" :style="{ backgroundColor: card.color }"></view>
@@ -68,7 +68,7 @@
 			</view>
 		</view>
 		<!-- 笔记小卡片 -->
-		<view v-if="card.type == 3" class="flex mini_node justify-around align-center padding-sm">
+		<view v-if="card.type == 2" class="flex mini_node justify-around align-center padding-sm">
 			<view class="warp flex justify-around flex-direction">
 				<view style="padding-left:38rpx; text-indent:-38rpx;">
 					<view class="circle" style="display: inline-block;margin: 0 12rpx;vertical-align:20%;" :style="{ backgroundColor: card.color }"></view>
@@ -101,7 +101,7 @@ export default {
 		types: Number
 	},
 	data(props) {
-		// type 1为任务 2为生活 3为笔记
+		// type 0为任务 1为生活 2为笔记
 		return {
 			type: 3,
 			show: false,

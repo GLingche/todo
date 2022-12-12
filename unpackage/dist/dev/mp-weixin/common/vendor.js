@@ -956,7 +956,7 @@ function initData(vueOptions, context) {
     try {
       data = data.call(context); // 支持 Vue.prototype 上挂的数据
     } catch (e) {
-      if (Object({"VUE_APP_NAME":"todo","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"NODE_ENV":"development","VUE_APP_NAME":"todo","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.warn('根据 Vue 的 data 函数初始化小程序 data 失败，请尽量确保 data 函数中不访问 vm 对象，否则可能影响首次数据渲染速度。', data);
       }
     }
@@ -4296,6 +4296,66 @@ timeFrom;exports.default = _default;
 
 /***/ }),
 
+/***/ 246:
+/*!**************************************************************************!*\
+  !*** D:/MyCode/前端代码/移动端/todo/node_modules/uview-ui/libs/util/emitter.js ***!
+  \**************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; /**
+                                                                                                      * 递归使用 call 方式this指向
+                                                                                                      * @param componentName // 需要找的组件的名称
+                                                                                                      * @param eventName // 事件名称
+                                                                                                      * @param params // 需要传递的参数
+                                                                                                      */
+function _broadcast(componentName, eventName, params) {
+  // 循环子节点找到名称一样的子节点 否则 递归 当前子节点
+  this.$children.map(function (child) {
+    if (componentName === child.$options.name) {
+      child.$emit.apply(child, [eventName].concat(params));
+    } else {
+      _broadcast.apply(child, [componentName, eventName].concat(params));
+    }
+  });
+}var _default =
+{
+  methods: {
+    /**
+              * 派发 (向上查找) (一个)
+              * @param componentName // 需要找的组件的名称
+              * @param eventName // 事件名称
+              * @param params // 需要传递的参数
+              */
+    dispatch: function dispatch(componentName, eventName, params) {
+      var parent = this.$parent || this.$root; //$parent 找到最近的父节点 $root 根节点
+      var name = parent.$options.name; // 获取当前组件实例的name
+      // 如果当前有节点 && 当前没名称 且 当前名称等于需要传进来的名称的时候就去查找当前的节点
+      // 循环出当前名称的一样的组件实例
+      while (parent && (!name || name !== componentName)) {
+        parent = parent.$parent;
+        if (parent) {
+          name = parent.$options.name;
+        }
+      }
+      // 有节点表示当前找到了name一样的实例
+      if (parent) {
+        parent.$emit.apply(parent, [eventName].concat(params));
+      }
+    },
+    /**
+        * 广播 (向下查找) (广播多个)
+        * @param componentName // 需要找的组件的名称
+        * @param eventName // 事件名称
+        * @param params // 需要传递的参数
+        */
+    broadcast: function broadcast(componentName, eventName, params) {
+      _broadcast.call(this, componentName, eventName, params);
+    } } };exports.default = _default;
+
+/***/ }),
+
 /***/ 25:
 /*!************************************************************************************!*\
   !*** D:/MyCode/前端代码/移动端/todo/node_modules/uview-ui/libs/function/colorGradient.js ***!
@@ -4537,66 +4597,6 @@ var color = {
 
 
 color;exports.default = _default;
-
-/***/ }),
-
-/***/ 270:
-/*!**************************************************************************!*\
-  !*** D:/MyCode/前端代码/移动端/todo/node_modules/uview-ui/libs/util/emitter.js ***!
-  \**************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; /**
-                                                                                                      * 递归使用 call 方式this指向
-                                                                                                      * @param componentName // 需要找的组件的名称
-                                                                                                      * @param eventName // 事件名称
-                                                                                                      * @param params // 需要传递的参数
-                                                                                                      */
-function _broadcast(componentName, eventName, params) {
-  // 循环子节点找到名称一样的子节点 否则 递归 当前子节点
-  this.$children.map(function (child) {
-    if (componentName === child.$options.name) {
-      child.$emit.apply(child, [eventName].concat(params));
-    } else {
-      _broadcast.apply(child, [componentName, eventName].concat(params));
-    }
-  });
-}var _default =
-{
-  methods: {
-    /**
-              * 派发 (向上查找) (一个)
-              * @param componentName // 需要找的组件的名称
-              * @param eventName // 事件名称
-              * @param params // 需要传递的参数
-              */
-    dispatch: function dispatch(componentName, eventName, params) {
-      var parent = this.$parent || this.$root; //$parent 找到最近的父节点 $root 根节点
-      var name = parent.$options.name; // 获取当前组件实例的name
-      // 如果当前有节点 && 当前没名称 且 当前名称等于需要传进来的名称的时候就去查找当前的节点
-      // 循环出当前名称的一样的组件实例
-      while (parent && (!name || name !== componentName)) {
-        parent = parent.$parent;
-        if (parent) {
-          name = parent.$options.name;
-        }
-      }
-      // 有节点表示当前找到了name一样的实例
-      if (parent) {
-        parent.$emit.apply(parent, [eventName].concat(params));
-      }
-    },
-    /**
-        * 广播 (向下查找) (广播多个)
-        * @param componentName // 需要找的组件的名称
-        * @param eventName // 事件名称
-        * @param params // 需要传递的参数
-        */
-    broadcast: function broadcast(componentName, eventName, params) {
-      _broadcast.call(this, componentName, eventName, params);
-    } } };exports.default = _default;
 
 /***/ }),
 
@@ -10190,7 +10190,7 @@ function type(obj) {
 
 function flushCallbacks$1(vm) {
     if (vm.__next_tick_callbacks && vm.__next_tick_callbacks.length) {
-        if (Object({"VUE_APP_NAME":"todo","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+        if (Object({"NODE_ENV":"development","VUE_APP_NAME":"todo","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:flushCallbacks[' + vm.__next_tick_callbacks.length + ']');
@@ -10211,14 +10211,14 @@ function nextTick$1(vm, cb) {
     //1.nextTick 之前 已 setData 且 setData 还未回调完成
     //2.nextTick 之前存在 render watcher
     if (!vm.__next_tick_pending && !hasRenderWatcher(vm)) {
-        if(Object({"VUE_APP_NAME":"todo","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"NODE_ENV":"development","VUE_APP_NAME":"todo","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:nextVueTick');
         }
         return nextTick(cb, vm)
     }else{
-        if(Object({"VUE_APP_NAME":"todo","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"NODE_ENV":"development","VUE_APP_NAME":"todo","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance$1 = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance$1.is || mpInstance$1.route) + '][' + vm._uid +
                 ']:nextMPTick');
@@ -10304,7 +10304,7 @@ var patch = function(oldVnode, vnode) {
     });
     var diffData = this.$shouldDiffData === false ? data : diff(data, mpData);
     if (Object.keys(diffData).length) {
-      if (Object({"VUE_APP_NAME":"todo","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"NODE_ENV":"development","VUE_APP_NAME":"todo","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + this._uid +
           ']差量更新',
           JSON.stringify(diffData));
@@ -13148,9 +13148,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.tabList = 
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.scrollerList = exports.testList = void 0;var testList = [
+Object.defineProperty(exports, "__esModule", { value: true });exports.scrollerList = exports.testList1 = exports.scrollerList2 = exports.testList2 = void 0;var testList2 = [
 {
-  type: 3,
+  type: 2,
   process: 100,
   id: 'dfa',
   tag: '设计工作',
@@ -13162,7 +13162,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.scrollerLi
   locate: '家' },
 
 {
-  type: 3,
+  type: 2,
   process: 100,
   id: 'dfa',
   tag: '设计工作',
@@ -13174,7 +13174,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.scrollerLi
   locate: '家' },
 
 {
-  type: 3,
+  type: 2,
   process: 100,
   id: 'dfa',
   tag: '设计工作',
@@ -13186,7 +13186,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.scrollerLi
   locate: '家' },
 
 {
-  type: 3,
+  type: 2,
   process: 100,
   id: 'dfa',
   tag: '设计工作',
@@ -13195,7 +13195,96 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.scrollerLi
   time: '12:00 PM,10月2日',
   color: '#23cc52',
   // list: ['工作汇报', '技能分享', '哈哈哈'],
-  locate: '家' }];exports.testList = testList;
+  locate: '家' }];exports.testList2 = testList2;
+
+
+
+
+
+var scrollerList2 = [
+{
+  process: 100,
+  id: 'dfa',
+  tag: '设计工作',
+  name: '准备本周哈哈哈',
+  time: '12:00 PM,10月2日',
+  color: '#23cc52',
+  locate: '家',
+  content: "恐怖如斯，他正一步一步向众人走来，虽然声音不大，但足以让所有人听的清清楚楚" },
+
+{
+  process: 100,
+  id: 'dfa',
+  tag: '设计工作',
+  name: '准备本周哈哈哈',
+  time: '12:00 PM,10月2日',
+  color: '#23cc52',
+  locate: '家',
+  content: "恐怖如斯，他正一步一步向众人走来，虽然声音不大，但足以让所有人听的清清楚楚" },
+
+{
+  process: 100,
+  id: 'dfa',
+  tag: '设计工作',
+  name: '准备本周哈哈哈',
+  time: '12:00 PM,10月2日',
+  color: '#23cc52',
+  locate: '家',
+  content: "恐怖如斯，他正一步一步向众人走来，虽然声音不大，但足以让所有人听的清清楚楚" }];exports.scrollerList2 = scrollerList2;
+
+
+
+
+
+
+var testList1 = [
+{
+  type: 0,
+  process: 100,
+  id: 'dfa',
+  tag: '设计工作',
+  src: '../../../static/image/finish.png',
+  name: '准备本周哈哈哈',
+  time: '12:00 PM,10月2日',
+  color: '#23cc52',
+  list: ['工作汇报', '技能分享', '哈哈哈'],
+  locate: '家' },
+
+{
+  type: 0,
+  process: 100,
+  id: 'dfa',
+  tag: '设计工作',
+  src: '../../../static/image/finish.png',
+  name: '准备本周哈哈哈',
+  time: '12:00 PM,10月2日',
+  color: '#23cc52',
+  list: ['工作汇报', '技能分享', '哈哈哈'],
+  locate: '家' },
+
+{
+  type: 0,
+  process: 100,
+  id: 'dfa',
+  tag: '设计工作',
+  src: '../../../static/image/finish.png',
+  name: '准备本周哈哈哈',
+  time: '12:00 PM,10月2日',
+  color: '#23cc52',
+  list: ['工作汇报', '技能分享', '哈哈哈'],
+  locate: '家' },
+
+{
+  type: 0,
+  process: 100,
+  id: 'dfa',
+  tag: '设计工作',
+  src: '../../../static/image/finish.png',
+  name: '准备本周哈哈哈',
+  time: '12:00 PM,10月2日',
+  color: '#23cc52',
+  // list: ['工作汇报', '技能分享', '哈哈哈'],
+  locate: '家' }];exports.testList1 = testList1;
 
 
 
@@ -13219,7 +13308,7 @@ var scrollerList = [
   process: 100,
   id: 'dfa',
   tag: '设计工作',
-  // src: '../../../static/image/film.png',
+  src: '../../../static/image/film.png',
   name: '准备本周哈哈哈',
   time: '12:00 PM,10月2日',
   color: '#23cc52',

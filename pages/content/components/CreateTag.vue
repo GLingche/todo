@@ -4,7 +4,7 @@
 			<view class="wrap" @tap="show = false" @touchmove="touchMove" @touchend="touchEnd" @touchstart="touchStart"><view class="move"></view></view>
 			<span class="top">创建标签</span>
 			<span class="text">标签名</span>
-			<view style="width: 90%;margin:24rpx;"><u-input v-model="value" type="text" border="true" placeholder="请输入标签名" /></view>
+			<view style="width: 90%;margin:24rpx;"><u-input v-model="valueText" type="text" border="true" placeholder="请输入标签名" /></view>
 			<span class="text">色彩</span>
 			<view class="srollItem flex align-center" :class="className">
 				<view
@@ -37,7 +37,7 @@
 			</view>
 			<view class="flex justify-end" style="margin: 36rpx 24rpx 24rpx 24rpx">
 				<u-button type="info" class="margin-right" size="medium" @click="show = false">取消</u-button>
-				<u-button type="success" class="margin-right" size="medium">确认</u-button>
+				<u-button type="success" class="margin-right" size="medium" @click="createItem">确认</u-button>
 			</view>
 		</view>
 	</u-popup>
@@ -52,7 +52,8 @@ export default {
 	},
 	data(props) {
 		return {
-			tempImageSrc:'',
+			radio: 1.8, //灵敏参数频
+			tempImageSrc: '',
 			imgTempIndex: 0,
 			colorTempIndex: 0,
 			coloritems: [],
@@ -63,25 +64,32 @@ export default {
 			startY: '',
 			originWidth: 1000,
 			distance: '',
-			value: '',
+			valueText: null,
 			show: false,
-			tempItem: {
-				name: null,
-				id: null,
-				categroyId: null,
-				image: '../../static/image/test.png'
-			},
-			list: {
-				src: '../../static/image/test.png',
-				name: '设计工作',
-				number: 12,
-				color: '#23cc52'
-			},
-			backgroundColor: 'rgba(35,204,82,0.5)'
+			backgroundColor: 'rgba(35,204,82,0.5)',
+			currentColor:null,
+			currentIcon: null
 		};
 	},
 
 	methods: {
+		createItem() {
+			console.log(this.valueText, this.currentColor, this.currentIcon);
+
+			let tagItem = {
+				src: this.currentIcon,
+				name: this.valueText,
+				number: 0,
+				color: this.currentColor
+			};
+			if(!this.valueText || !this.currentColor || !this.currentIcon){
+					uni.$u.toast('请确认信息填充完毕');
+			}else{
+				this.$emit('createTags', tagItem);
+				this.show = false;	
+			}
+	
+		},
 		addIcon() {
 			let that = this;
 			wx.chooseMedia({
@@ -101,17 +109,19 @@ export default {
 					//   duration: 10000
 					// });
 					console.log(picFilePath);
-						
+
 					that.tempImageSrc = picFilePath;
 					let obj = {
-						src:picFilePath,
-						id:Math.random().toString(36).slice(2),
-						status:false
-					}
+						src: picFilePath,
+						id: Math.random()
+							.toString(36)
+							.slice(2),
+						status: false
+					};
 					that.imageItems[that.imgTempIndex].status = false;
 					that.imgTempIndex = 0;
-					that.imageItems.unshift(obj)
-					console.log(that.imageItems)
+					that.imageItems.unshift(obj);
+					console.log(that.imageItems);
 					let penPictrue = 'data:image/png;base64,' + wx.getFileSystemManager().readFileSync(picFilePath, 'base64');
 				}
 			});
@@ -119,11 +129,13 @@ export default {
 		clickColorList(val, index) {
 			this.coloritems[this.colorTempIndex].status = false;
 			val.status = true;
+			this.currentColor = val.color;
 			this.colorTempIndex = index;
 		},
 		clickImageList(val, index) {
 			this.imageItems[this.imgTempIndex].status = false;
 			val.status = true;
+			this.currentIcon = val.src;
 			this.imgTempIndex = index;
 		},
 		touchStart(e) {
@@ -149,21 +161,31 @@ export default {
 			if (this.originWidth > 1400 && this.distance > 0) {
 				return;
 			}
-			this.originWidth = this.originWidth + this.distance;
+			this.originWidth = this.originWidth + this.distance * this.radio;
 
 			// console.log(e.touches[0].pageY,'移动的距离')
 		},
 		touchEnd(e) {
 			this.endMS = Date.now(); //记录用户最后的触摸时间
-			if (this.endMS - this.beaginMS < 500 && this.distance < -100) {
+			console.log(this.endMS - this.beaginMS, '差值');
+			console.log(this.endMS - this.beaginMS < 300);
+			console.log(this.distance);
+			if (this.endMS - this.beaginMS < 500 && this.distance < -8) {
 				console.log(222222);
 				this.show = false;
 			}
 			console.log(this.originWidth, '手指松开了');
+		},
+
+		reset() {
+			this.coloritems[this.colorTempIndex].status = false;
+			this.imageItems[this.imgTempIndex].status = false;
+			this.valueText = null;
 		}
 	},
 	watch: {
 		show(val) {
+			this.reset();
 			if (val) {
 				this.$emit('perventTouch');
 			} else {
@@ -237,11 +259,11 @@ export default {
 		width: 100rpx;
 		height: 100rpx;
 	}
-	.hoverItemImage{
+	.hoverItemImage {
 		width: 100rpx;
 		height: 100rpx;
 		border-radius: 50%;
-		background: linear-gradient(to bottom, transparent, #23C343),
+		background: linear-gradient(to bottom, transparent, #23c343);
 	}
 }
 </style>

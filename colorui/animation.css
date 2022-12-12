@@ -42,12 +42,21 @@
 }
 
 .animation-slide-left {
-    animation-name: slide-left
+     animation-name: slide-left 
 }
 
 .animation-slide-right {
-    animation-name: slide-right
+    animation-name: slide-right 
 }
+
+.animation-slide-up-left {
+      animation-name: scale-up-left
+}
+
+.animation-slide-up-right {
+    animation-name: scale-up-right
+}
+
 
 .animation-shake {
     animation-name: shake
@@ -55,6 +64,52 @@
 
 .animation-reverse {
     animation-direction: reverse
+}
+
+
+
+
+@keyframes scale-up-left {
+    0% {
+		  opacity: .5;
+        transform: scale(.99)
+    }
+
+  50% {
+        transform: scale(1)
+    }
+	
+   51% {
+        transform: translateX(-100%)
+      
+    }
+    
+
+    100% {
+        transform: translateX(0)
+       
+    }
+}
+
+
+@keyframes scale-up-right {
+    0% {
+		  opacity: .5;
+        transform: scale(.99)
+    }
+
+  50% {
+        transform: scale(1)
+    }
+	
+  51% {
+       transform: translateX(100%)
+   }
+   
+   100% {
+	    opacity: 1;
+       transform: translateX(0)
+   }
 }
 
 @keyframes fade {
