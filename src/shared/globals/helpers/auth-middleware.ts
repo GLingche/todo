@@ -6,7 +6,7 @@ import { AuthPayload } from '@auth/interfaces/auth.interface';
 
 export class AuthMiddleware {
   public verifyUser(req: Request, _res: Response, next: NextFunction): void {
-    console.log(req.headers.token, 'test11111111111111111111');
+    // console.log(req.headers.token, 'test11111111111111111111');
     if (!req.headers?.token) {
       throw new NotAuthorizedError('Token is not available. Please login again.');
     }

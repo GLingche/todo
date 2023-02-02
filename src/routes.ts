@@ -10,7 +10,7 @@ export default (app: Application) => {
   const routes = () => {
     app.use(BASE_PATH, authRoute.routes());
     app.use(BASE_PATH, authRoute.signoutRoute());
-    app.use(BASE_PATH,cardItemRoutes.routes());
+    app.use(BASE_PATH, authMiddleware.verifyUser, cardItemRoutes.routes());
     app.use(BASE_PATH, authMiddleware.verifyUser, currentUserRoutes.routes());
     app.use(BASE_PATH, authMiddleware.verifyUser, moduleRoutes.routes());
   };

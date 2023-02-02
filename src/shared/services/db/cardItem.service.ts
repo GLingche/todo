@@ -1,5 +1,5 @@
 import { IModuleDocument } from '@module/interfaces/module.interface';
-import { IcardItemDocument } from '@cardItem/interfaces/cardItem.interface';
+import { IcardItemDocument, IAddMcardItem } from '@cardItem/interfaces/cardItem.interface';
 import { CardItemModel } from '@cardItem/models/cardItem.schema';
 import { ModuleModel } from '@module/models/module.schema';
 import { Helpers } from '@global/helpers/helpers';
@@ -21,27 +21,28 @@ class CardItemServe {
   //   return mudoles;
   // }
 
-  public async getCardItemById(userId: string): Promise<Array<IModuleDocument>> {
-    const mudoles: Array<IModuleDocument> = await ModuleModel.aggregate([
-      { $match: { userId: new mongoose.Types.ObjectId(userId) } },
-      { $lookup: { from: 'User', localField: 'userId', foreignField: '_id', as: 'userId' } },
-      { $unwind: '$userId' },
+  public async getCardItemById(moduleId: string): Promise<Array<IcardItemDocument>> {
+    const cardItem: Array<IcardItemDocument> = await CardItemModel.aggregate([
+      { $match: { moduleId: new mongoose.Types.ObjectId(moduleId) } },
+      { $lookup: { from: 'Module', localField: 'moduleId', foreignField: '_id', as: 'moduleId' } },
+      { $unwind: '$moduleId' },
       { $project: this.aggregateProject() }
     ]);
 
-    return mudoles;
+    return cardItem;
   }
 
   private aggregateProject() {
     return {
       _id: 1,
-      type: 1,
-      subType: 1,
-      icon: 1,
-      done: 1,
-      createdAt: 1,
-      color: 1,
-      test: '$userId.postsCount'
+      text: 1,
+      list: 1,
+      penPictrue: 1,
+      process: 1,
+      clock: 1,
+      repetition: 1,
+      location:1,
+      test: '$moduleId.subType'
     };
   }
 }

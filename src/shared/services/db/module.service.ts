@@ -22,13 +22,22 @@ class ModuleServe {
 
   public async getModulesId(userId: string, type: number, tagName: string): Promise<IModuleDocument> {
     const mudoles: Array<IModuleDocument> = await ModuleModel.aggregate([
-      { $match: { userId: new mongoose.Types.ObjectId(userId), type: type, subType: tagName } },
+      { $match: { userId: new mongoose.Types.ObjectId(userId), type: parseInt(type + ''), subType: tagName } },
       { $lookup: { from: 'User', localField: 'userId', foreignField: '_id', as: 'userId' } },
       { $unwind: '$userId' },
       { $project: this.aggregateProject() }
     ]);
-    console.log(mudoles, 'test');
     return mudoles[0];
+  }
+
+  public async getModulesIdByType(userId: string, type: number): Promise<Array<IModuleDocument>> {
+    const mudoles: Array<IModuleDocument> = await ModuleModel.aggregate([
+      { $match: { userId: new mongoose.Types.ObjectId(userId), type: parseInt(type + '') } },
+      { $lookup: { from: 'User', localField: 'userId', foreignField: '_id', as: 'userId' } },
+      { $unwind: '$userId' },
+      { $project: this.aggregateProject() }
+    ]);
+    return mudoles;
   }
 
   private aggregateProject() {

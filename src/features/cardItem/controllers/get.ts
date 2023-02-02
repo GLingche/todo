@@ -1,25 +1,37 @@
 import { IModuleDocument } from '@module/interfaces/module.interface';
 import { userService } from '@service/db/user.service';
 import { IUserDocument } from '@user/interfaces/user.interface';
+import { ModuleService } from '@service/db/module.service';
 import { Request, Response } from 'express';
 import HTTP_STATUS from 'http-status-codes';
-import {ModuleService} from '@service/db/module.service'
-import { BadRequestError } from "@global/helpers/error-handle";
-
-
-
+import { CardItemService } from '@service/db/cardItem.service';
+import { BadRequestError } from '@global/helpers/error-handle';
+import { IcardItemDocument, IAddMcardItem } from '@cardItem/interfaces/cardItem.interface';
 export class Get {
   public async read(req: Request, res: Response): Promise<void> {
-    let Modules = null;
+    let cardItem = new Array();
+    const { type } = req.query as any;
 
-    const existingUser: IUserDocument = await userService.getUserByAuthId(`${req.currentUser!.userId}`);
+    const existingUser: IUserDocument = await userService.getUserById(`${req.currentUser!.userId}`);
 
-    if(!existingUser) {
-      throw new BadRequestError('please login')
-    }else{
-      const existingModules:Array<IModuleDocument> = await ModuleService.getModulesById(`${existingUser._id}`);
-      Modules = existingModules
+    const existingModule: Array<IModuleDocument> = await ModuleService.getModulesIdByType(`${existingUser._id}`, type);
+
+    if (!existingModule) {
+      throw new BadRequestError('error');
     }
-    res.status(HTTP_STATUS.OK).json({ Modules });
+    for (let i = 0; i < existingModule.length; i++) {
+      let tempList = [];
+      if (!existingUser) {
+        throw new BadRequestError('please login');
+      } else {
+        const existingCardItem: Array<IcardItemDocument> = await CardItemService.getCardItemById(`${existingModule[i]._id}`);
+        tempList = existingCardItem;
+      }
+      if (tempList.length !== 0) {
+        cardItem.push(tempList);
+      }
+    }
+    cardItem = cardItem.flat(1);
+    res.status(HTTP_STATUS.OK).json({ cardItem });
   }
 }
